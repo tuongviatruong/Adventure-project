@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Aventure Planning {% endblock %}
+{% block body %}
+
+<h1>Adventure Planning</h1>
+
+<h2>Search a city for top sights</h2>
+
+  <form id="sights" method="get" action="/city">
+    City: <input type="text" name="city" id="city">
+    
+
+    <input type="submit" id="sights" value="Submit">
+
+  </form>
+
+ <script>
+  "use strict";
+  let submitButton = document.querySelector("#sights");
+
+  function showResults(result) {
+    console.log(result)
+    result["name"]
+  }
+
+
+  function submitCity(evt) {
+    evt.preventDefault();
+    let formInputs = {'city': $("#city").val()}
+    
+    $.get("/city", formInputs, showResults);
+  }
+
+  submitButton.addEventListener("submit", submitCity);
+
+</script> 
+
+
+{% endblock %}

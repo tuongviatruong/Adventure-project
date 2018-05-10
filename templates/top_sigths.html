@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Top Sights{% endblock %}
+
+{% block body %}
+
+    <ul>
+    {% for sight in results %}
+      <li>{{ sight }}</li>
+    {% endfor %}
+    </ul>
+
+
+{% endblock %}
