@@ -4,7 +4,7 @@
     <title>{% block title %} Title Goes Here {% endblock %}</title>
     <!-- <link rel="stylesheet" type="text/css" href="/static/styles.css"> -->
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script> <!-- To use jQuery code -->
-      {% block head %}
+    {% block head %}
         <!-- put extra CSS/JS here -->
     {% endblock %}
 </head>
@@ -13,19 +13,20 @@
     {% if session %}
         <a href='/logout'>Log Out</a> 
     {% else %}
-        <a href='/login-form'>Log In </a> | <a href='/register-form'>Register </a>
+        <a href='/login-form'>Log In </a> | <a href='/register-form'>Register</a>
 
     {% endif %}
 
     <hr>
 
      <!-- Show flashed messages -->
-  {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages() %}
       {% for message in messages %}
           <div class="alert alert-warning">{{ message }}</div>
       {% endfor %}
-  {% endwith %}
-    {% block body %}  {% endblock %}
+    {% endwith %}
+
+    {% block body %} Body Content Goes Here {% endblock %}
 
 </body>
 </html>

@@ -26,8 +26,6 @@ def show_top_sights():
 	"""Show city's top sights"""
 
 	city = request.args.get('city')
-
-	# payload = {'location': 'city'}
 	headers = {'Authorization': 'Bearer ' + YELP_KEY}
 
 	r = requests.get('https://api.yelp.com/v3/businesses/search?term=Sightseeing&location=' + city, headers=headers)
@@ -41,14 +39,55 @@ def show_top_sights():
 			if info == "name":
 				top_sights.append(value)
 
-	print "sights:",top_sights
+
 	return jsonify(top_sights)
+
+@app.route("/centermap")
+def show_map():
+	"""Show city center's map"""
+
+	city = request.args.get('city')
+	headers = {'Authorization': 'Bearer ' + YELP_KEY}
+
+	r = requests.get('https://api.yelp.com/v3/businesses/search?term=Sightseeing&location=' + city, headers=headers)
+	data = r.json()
+	
+	region = data["region"]
+
+	longitude = region["center"]["longitude"]
+	latitude = region["center"]["latitude"]
+	lat_long = {"lat": latitude, "lng": longitude}
+
+	return jsonify(lat_long)
 
 @app.route('/register-form')
 def register():
     """Register User"""
 
     return render_template("register_form.html")
+
+@app.route('/registration', methods=['POST'])
+def registration():
+    """Registers user after submitting info"""
+
+    user_email = request.form['email']
+    user_password = request.form['password']
+
+    email_query = User.query.filter_by(email=user_email).all()
+
+    if email_query:
+        return redirect("/login")
+    
+    else:
+        user = User(email=user_email,
+                    password=user_password)
+
+        db.session.add(user)
+        db.session.commit()
+
+    return redirect("/")
+
+
 
 # @app.route("/map")
 # def show_map():

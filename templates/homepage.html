@@ -8,17 +8,16 @@
 <h2>Search a city for top sights</h2>
 
   <form id="sights" method="get" action="/city">
-    City: <input type="text" name="city" id="city">
-    
+    City: <input type="text" name="city" id="city" required>
 
     <input type="submit" id="sights" value="Submit">
-
   </form>
 
   <p>
     <h3>Top Sights:</h3> <span id='top_sights'></span>
     <ul id='list_items'></ul>
   </p>
+
 
  <script>
   "use strict";
@@ -43,5 +42,37 @@
 
 </script> 
 
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 
+
+<style type="text/css">
+    html, body { height: 80%; margin: 0; padding: 0; }
+    #map { height: 80%; }
+  </style>
+
+<div id="map"></div>
+<script>
+
+  let submit = document.querySelector("#sights");
+
+  function showMap(result) {
+    console.log(result)
+    let map = new google.maps.Map(document.querySelector('#map'), {center: result, 
+      zoom: 8,
+  });
+  }
+
+  function submitMap(evt) {
+    evt.preventDefault();
+    let formInputs = {'city': $("#city").val()}
+    
+    $.get("/centermap", formInputs, showMap);
+  }
+
+  submit.addEventListener("submit", submitMap);
+
+"use strict";
+
+
+</script>
 {% endblock %}
