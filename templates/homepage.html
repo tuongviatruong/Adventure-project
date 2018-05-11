@@ -15,15 +15,22 @@
 
   </form>
 
+  <p>
+    <h3>Top Sights:</h3> <span id='top_sights'></span>
+    <ul id='list_items'></ul>
+  </p>
+
  <script>
   "use strict";
   let submitButton = document.querySelector("#sights");
 
   function showResults(result) {
     console.log(result)
-    result["name"]
-  }
+    for (let sight of result) {
+      $('#list_items').append("<li>" + sight + "</li>")
+    }
 
+  }
 
   function submitCity(evt) {
     evt.preventDefault();

@@ -35,17 +35,20 @@ def show_top_sights():
 	
 	business = data["businesses"]
 
-
+	top_sights = []
 	for place in business:
 		for info, value in place.items():
-			print info, value
-	
+			if info == "name":
+				top_sights.append(value)
 
-	
+	print "sights:",top_sights
+	return jsonify(top_sights)
 
-	return data
+@app.route('/register-form')
+def register():
+    """Register User"""
 
-
+    return render_template("register_form.html")
 
 # @app.route("/map")
 # def show_map():
@@ -73,4 +76,4 @@ if __name__ == "__main__":
 	# Use the DebugToolbar
 	DebugToolbarExtension(app)
 
-	app.run()
+	app.run(port=5000, host='0.0.0.0')

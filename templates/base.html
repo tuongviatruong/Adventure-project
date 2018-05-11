@@ -10,7 +10,21 @@
 </head>
 
 <body>
-    
+    {% if session %}
+        <a href='/logout'>Log Out</a> 
+    {% else %}
+        <a href='/login-form'>Log In </a> | <a href='/register-form'>Register </a>
+
+    {% endif %}
+
+    <hr>
+
+     <!-- Show flashed messages -->
+  {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+          <div class="alert alert-warning">{{ message }}</div>
+      {% endfor %}
+  {% endwith %}
     {% block body %}  {% endblock %}
 
 </body>
