@@ -29,13 +29,13 @@ let map = new google.maps.Map(document.querySelector('#map'), {
 ////////////
 // add marker for each latlong
 function addMarker() {
-  let myImageURL = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+  let image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
   let nearSydney = new google.maps.LatLng(-34.788666, 150.41146);
   let marker = new google.maps.Marker({
       position: nearSydney,
       map: map,
       title: 'Hover text',
-      icon: myImageURL
+      icon: image
   });
   return marker;
 }

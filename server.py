@@ -39,12 +39,11 @@ def show_top_sights():
 			if info == "name":
 				top_sights.append(value)
 
-
 	return jsonify(top_sights)
 
 @app.route("/centermap")
 def show_map():
-	"""Show city center's map"""
+	"""Show city center's map with markers"""
 
 	city = request.args.get('city')
 	headers = {'Authorization': 'Bearer ' + YELP_KEY}
@@ -58,11 +57,21 @@ def show_map():
 	latitude = region["center"]["latitude"]
 	lat_long = {"lat": latitude, "lng": longitude}
 
-	return jsonify(lat_long)
+	business = data["businesses"]
+
+	coordinates = []
+	for place in business:
+		for info, value in place.items():
+			if info == "coordinates":
+				coordinates.append(value)
+
+	return jsonify(lat_long, coordinates)
+
+
 
 @app.route('/register-form')
 def register():
-    """Register User"""
+    """Show user register form"""
 
     return render_template("register_form.html")
 
@@ -76,7 +85,7 @@ def registration():
     email_query = User.query.filter_by(email=user_email).all()
 
     if email_query:
-        return redirect("/login")
+        return redirect("/login-form")
     
     else:
         user = User(email=user_email,
@@ -87,19 +96,44 @@ def registration():
 
     return redirect("/")
 
+@app.route('/login-form')
+def login_form():
+    """Login form"""
+    return render_template("login.html")
 
+@app.route('/login', methods=["POST"])
+def login_check():
+    """Validates user info"""
 
-# @app.route("/map")
-# def show_map():
-#     return render_template("map.html")
+    user_email = request.form['email']
+    user_password = request.form['password']
+    
+    email_query = User.query.filter_by(email=user_email).first()
+    
+    if email_query == None:
+        flash('Invalid email or password')
+        return redirect('/login-form')
 
-# @app.route("/maps")
-# def test_map():
-#     return render_template("test_map.html")
+    password_query = User.query.filter_by(password=user_password).all()
 
+    if user_password == email_query.password:
 
+        session['user'] = email_query.user_id
+        flash('You were successfully logged in')
 
+        user_id = email_query.user_id
 
+        # return redirect('/users/%s' % user_id)
+    else:
+        flash('Invalid')
+        return redirect('/login-form')
+
+@app.route('/logout')
+def logout():
+    session.pop('user')
+    flash('You were successfully logged out')
+
+    return redirect('/')
 
 
 if __name__ == "__main__":

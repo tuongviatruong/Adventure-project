@@ -23,12 +23,31 @@
   "use strict";
   let submitButton = document.querySelector("#sights");
 
+
+  function showMap(result) {
+    console.log(result[0])
+    console.log(result[1])
+
+    let map = new google.maps.Map(document.querySelector('#map'), {
+      center: result[0], 
+      zoom: 8,
+    })
+    for (let i = 0; i < result[1].length; i++){
+      let marker = new google.maps.Marker({
+        position: new google.maps.LatLng(result[1][i]["latitude"],result[1][i]["longitude"]),
+        map: map,
+        title: 'Hover text'
+      })
+    }
+  }
+
   function showResults(result) {
     console.log(result)
     for (let sight of result) {
       $('#list_items').append("<li>" + sight + "</li>")
     }
-
+    let formInputs = {'city': $("#city").val()}
+    $.get("/centermap", formInputs, showMap);
   }
 
   function submitCity(evt) {
@@ -51,28 +70,5 @@
   </style>
 
 <div id="map"></div>
-<script>
 
-  let submit = document.querySelector("#sights");
-
-  function showMap(result) {
-    console.log(result)
-    let map = new google.maps.Map(document.querySelector('#map'), {center: result, 
-      zoom: 8,
-  });
-  }
-
-  function submitMap(evt) {
-    evt.preventDefault();
-    let formInputs = {'city': $("#city").val()}
-    
-    $.get("/centermap", formInputs, showMap);
-  }
-
-  submit.addEventListener("submit", submitMap);
-
-"use strict";
-
-
-</script>
 {% endblock %}
