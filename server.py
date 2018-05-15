@@ -36,6 +36,7 @@ def show_top_sights():
 	top_sights = []
 	coordinates = []
 	image_url = []
+	sight_url = []
 	for place in business:
 		for info, value in place.items():
 			if info == "name":
@@ -44,6 +45,8 @@ def show_top_sights():
 				coordinates.append(value)
 			elif info == "image_url":
 				image_url.append(value)
+			elif info == "url":
+				sight_url.append(value)
 
 	region = data["region"]
 
@@ -51,7 +54,7 @@ def show_top_sights():
 	latitude = region["center"]["latitude"]
 	lat_long = {"lat": latitude, "lng": longitude}
 
-	return jsonify(top_sights, lat_long, coordinates, image_url)
+	return jsonify(top_sights, lat_long, coordinates, image_url, sight_url)
 
 
 @app.route('/register-form')
