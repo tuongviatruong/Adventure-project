@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body %}
+
+  <h2>Users</h2>
+
+  <ul>
+    
+      <li>Name: {{ user.fname }}</li>
+      <br>
+  </ul>
+
+  <h3>Trips:</h3>
+  <ul>
+      {% for trip in user.trip_sights %}
+        <li>{{ trip.trip.city }}</li>
+
+      {% endfor %}
+  </ul>
+
+{% endblock %}
