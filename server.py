@@ -3,10 +3,10 @@ import os
 
 from jinja2 import StrictUndefined
 import requests
-from flask import Flask, render_template, request, flash, redirect, jsonify
+from flask import Flask, render_template, request, flash, redirect, jsonify, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db
+from model import connect_to_db, db, User, Sight, Trip, Trip_sight
 
 app = Flask(__name__)
 app.secret_key = "SECRETSECRETSECRET"
@@ -23,7 +23,7 @@ def homepage():
 
 @app.route("/city")
 def show_top_sights():
-	"""Show city's top sights"""
+	"""Show city's top sights, with map and markers"""
 
 	city = request.args.get('city')
 	headers = {'Authorization': 'Bearer ' + YELP_KEY}
@@ -34,39 +34,24 @@ def show_top_sights():
 	business = data["businesses"]
 
 	top_sights = []
+	coordinates = []
+	image_url = []
 	for place in business:
 		for info, value in place.items():
 			if info == "name":
 				top_sights.append(value)
+			elif info == "coordinates":
+				coordinates.append(value)
+			elif info == "image_url":
+				image_url.append(value)
 
-	return jsonify(top_sights)
-
-@app.route("/centermap")
-def show_map():
-	"""Show city center's map with markers"""
-
-	city = request.args.get('city')
-	headers = {'Authorization': 'Bearer ' + YELP_KEY}
-
-	r = requests.get('https://api.yelp.com/v3/businesses/search?term=Sightseeing&location=' + city, headers=headers)
-	data = r.json()
-	
 	region = data["region"]
 
 	longitude = region["center"]["longitude"]
 	latitude = region["center"]["latitude"]
 	lat_long = {"lat": latitude, "lng": longitude}
 
-	business = data["businesses"]
-
-	coordinates = []
-	for place in business:
-		for info, value in place.items():
-			if info == "coordinates":
-				coordinates.append(value)
-
-	return jsonify(lat_long, coordinates)
-
+	return jsonify(top_sights, lat_long, coordinates, image_url)
 
 
 @app.route('/register-form')
@@ -81,6 +66,8 @@ def registration():
 
     user_email = request.form['email']
     user_password = request.form['password']
+    user_fname = request.form['fname']
+    user_lname = request.form['lname']
 
     email_query = User.query.filter_by(email=user_email).all()
 
@@ -88,13 +75,15 @@ def registration():
         return redirect("/login-form")
     
     else:
-        user = User(email=user_email,
+        user = User(fname=user_fname,
+        			lname=user_lname,
+        			email=user_email,
                     password=user_password)
 
         db.session.add(user)
         db.session.commit()
 
-    return redirect("/")
+    return redirect("/login-form")
 
 @app.route('/login-form')
 def login_form():
@@ -123,7 +112,7 @@ def login_check():
 
         user_id = email_query.user_id
 
-        # return redirect('/users/%s' % user_id)
+        return redirect('/')
     else:
         flash('Invalid')
         return redirect('/login-form')
@@ -134,6 +123,13 @@ def logout():
     flash('You were successfully logged out')
 
     return redirect('/')
+
+@app.route('/users/<user_id>')
+def user_trips(user_id):
+    """Show user's trips"""
+    user_id = User.query.filter_by(user_id=user_id).first()
+
+    return render_template("user_trips.html", user=user_id)
 
 
 if __name__ == "__main__":

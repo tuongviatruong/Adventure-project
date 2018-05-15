@@ -25,10 +25,14 @@
 
   function showResults(result) {
     console.log(result)
-    for (let sight of result[0]) {
-      $('#list_items').append("<li>" + sight + "</li>")
+
+    // for (let sight of result[0]) {
+    //   $('#list_items').append("<li>" + sight + "</li>")
+    // }
+    for (let i = 0; i < result[0].length; i++){
+        $('#list_items').append(`<li> <img src=${result[3][i]} style="width:100px;height:100px"> <br> ${result[0][i]} </li>`)
     }
-    
+
     let map = new google.maps.Map(document.querySelector('#map'), {
       center: result[1], 
       zoom: 8,
