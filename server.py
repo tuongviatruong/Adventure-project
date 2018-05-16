@@ -17,9 +17,9 @@ YELP_CLIENT = os.environ['CLIENT_ID']
 
 @app.route("/")
 def homepage():
-	"""Show homepage"""
+    """Show homepage"""
 
-	return render_template("homepage.html")
+    return render_template("homepage.html")
 
 @app.route("/city")
 def show_top_sights():
@@ -76,7 +76,7 @@ def registration():
 
     if email_query:
         return redirect("/login-form")
-    
+
     else:
         user = User(fname=user_fname,
         			lname=user_lname,
@@ -99,14 +99,12 @@ def login_check():
 
     user_email = request.form['email']
     user_password = request.form['password']
-    
-    email_query = User.query.filter_by(email=user_email).first()
-    
-    if email_query == None:
-        flash('Invalid email or password')
-        return redirect('/login-form')
 
-    password_query = User.query.filter_by(password=user_password).all()
+    email_query = User.query.filter_by(email=user_email).first()
+
+    if email_query == None:
+    	flash('Invalid email or password')
+        return redirect('/login-form')
 
     if user_password == email_query.password:
 
@@ -127,12 +125,45 @@ def logout():
 
     return redirect('/')
 
-@app.route('/users/<user_id>')
-def user_trips(user_id):
-    """Show user's trips"""
-    user_id = User.query.filter_by(user_id=user_id).first()
+@app.route('/trips')
+def user_trips():
+    """User's trips page, can add trip or view trips"""
+    user = User.query.get(1)
+    trips = Trip.query.order_by("city").all()
 
-    return render_template("user_trips.html", user=user_id)
+    return render_template("user_trips.html", user=user, trips=trips)
+
+@app.route('/add-trips')
+def add_trips():
+	"""User adding a trip"""
+
+	trip_name = request.args.get('trip')
+	trip = Trip(city=trip_name)
+
+	db.session.add(trip)
+	db.session.commit()
+
+	return redirect('/trips')
+
+@app.route('/details/<trip>')
+def trip_details(trip):
+    """Detail for trip"""
+
+    sights = Sight.query.all()
+
+    return render_template("trip_info.html", sights=sights, trip=trip)
+
+# @app.route('/add-sights')
+# def add_trips():
+# 	"""Adding sights to a trip"""
+
+# 	 = request.args.get('')
+# 	trip = Sight(city=trip_name)
+
+# 	db.session.add()
+# 	db.session.commit()
+
+# 	return redirect('')
 
 
 if __name__ == "__main__":

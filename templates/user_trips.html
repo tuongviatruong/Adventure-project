@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
+{% block title %} Trips {% endblock %}
 {% block body %}
 
-  <h2>Users</h2>
+  <h2>Hi {{ user.fname }} !</h2>
 
+  <h3>Your Trips:</h3>
   <ul>
-    
-      <li>Name: {{ user.fname }}</li>
-      <br>
+    {% for trip in trips %}
+      <li><a href="/details/{{ trip.city }}"> {{ trip.city }} </a></li>
+    {% endfor %}
   </ul>
 
-  <h3>Trips:</h3>
-  <ul>
-      {% for trip in user.trip_sights %}
-        <li>{{ trip.trip.city }}</li>
+  <form id="trips" method="get" action="/add-trips">
+    Trip Name: <input type="text" name="trip" id="trip" required>
 
-      {% endfor %}
-  </ul>
+    <input type="submit" id="trip" value="Add a trip">
+  </form>
 
 {% endblock %}

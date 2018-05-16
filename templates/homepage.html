@@ -11,6 +11,13 @@
     City: <input type="text" name="city" id="city" required>
 
     <input type="submit" id="sights" value="Submit">
+
+    {% if session %}
+      <input type="text" value="true" id="is_session" hidden >
+    {% else %}
+      <input type="text" value="false" id="is_session" hidden>
+    {% endif %}
+
   </form>
 
   <p>
@@ -25,13 +32,22 @@
 
   function showResults(result) {
     console.log(result)
+    // result[0]=top_sights
+    // result[1]=lat_long
+    // result[2]=coordinates
+    // result[3]=image_url
+    // result[4]=sight_url
 
-    // for (let sight of result[0]) {
-    //   $('#list_items').append("<li>" + sight + "</li>")
-    // }
     for (let i = 0; i < result[0].length; i++){
-        $('#list_items').append(`<li> <img src=${result[3][i]} style="width:100px;height:100px"> <br> <a href=${result[4][i]}>${result[0][i]}</a> </li>`)
+        $('#list_items').append(`<li> <img src=${result[3][i]} style="width:100px;height:100px"> <br> 
+        <a href=${result[4][i]}> ${result[0][i]}</a></li>`)
+
+            let session = document.querySelector('#is_session');
+            if (session.value === "true") {
+              $('#list_items').append(`<a href="/trips">Add to trip</a>`)
+            } 
     }
+
 
     let map = new google.maps.Map(document.querySelector('#map'), {
       center: result[1], 
