@@ -58,14 +58,24 @@
     // result[4]=sight_url
 
     for (let i = 0; i < result[0].length; i++){
+<<<<<<< HEAD
         $('#list_items').append(`<li id=i> <img src=${result[3][i]} style="width:100px;height:100px"> <br> 
+=======
+        $('#list_items').append(`<li> <img src=${result[3][i]} style="width:100px;height:100px"> <br> 
+>>>>>>> f22725567595ca36e9e18327e4548df2a9ac9197
         <a href=${result[4][i]}> ${result[0][i]}</a></li>`)
 
             let session = document.querySelector('#is_session');
             if (session.value === "true") {
+<<<<<<< HEAD
               $('#list_items').append(`<button id='addSight' class='addSightText'>Add sight to trip</button> <br><br>`)
             }
+=======
+              $('#list_items').append(`<a href="/trips">Add to trip</a>`)
+            } 
+>>>>>>> f22725567595ca36e9e18327e4548df2a9ac9197
     }
+
 
     let map = new google.maps.Map(document.querySelector('#map'), {
       center: result[1], 
