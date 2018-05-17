@@ -25,18 +25,29 @@
     <ul id='list_items'></ul>
   </p>
 
+
  <script>
   "use strict";
   let submitButton = document.querySelector("#sights");
 
+  // function showDetails(result) {
+  //   console.log(result)
+
+  // }
+
 
   function addSight() {
-    if (addSight.innerText === "Add sight to trip") {
-    addSight.innerText = "Sight added";
+    if (sightButtons.innerText === "Add sight to trip") {
+      sightButtons.innerText = "Sight added";
     } else {
-    addSight.innerText = "Add sight to trip";
+      sightButtons.innerText = "Add sight to trip";
     }
-  };
+    let formInputs = {'city': $("#city").val()}
+    $.get("/add-sights", formInputs, showDetails);
+  }
+
+  // once click, function that adds to details page
+
 
   function showResults(result) {
     console.log(result)
@@ -56,7 +67,6 @@
             }
     }
 
-
     let map = new google.maps.Map(document.querySelector('#map'), {
       center: result[1], 
       zoom: 8,
@@ -69,8 +79,18 @@
     }
   }
 
-let sightButtons = document.querySelectorAll('.addSightText');
-sightButtons.addEventListener("click", addSight);
+  let sightButtons = document.querySelectorAll(".addSightText");
+  // sightButtons.addEventListener("click", addSight); //console says addEventListner is not a fuction
+  $("#addSight").on("click", addSight);
+  // for (let i = 0; i < sightButtons.length; i++){
+  //   sightButtons[i].addEventListener("click", function(){
+  //     if (sightButtons.innerText === "Add sight to trip") {
+  //     sightButtons.innerText = "Sight added";
+  //     } else {
+  //     sightButtons.innerText = "Add sight to trip";
+  //     }
+  //   });
+  // }
 
   function submitCity(evt) {
     evt.preventDefault();

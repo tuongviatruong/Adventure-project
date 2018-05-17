@@ -158,13 +158,13 @@ def trip_details(trip):
 # 	"""Adding sights to a trip"""
 
 # 	city = request.args.get('city')
-# 	 = request.args.get('')
-# 	trip = Sight(city=trip_name)
+# 	sight_name = request.args.get('id of sight')
+# 	sight = Sight(name_sight=sight_name, city=city)
 
-# 	db.session.add()
+# 	db.session.add(sight)
 # 	db.session.commit()
 
-# 	return redirect('/')
+	# return redirect('/details/<trip>'>
 
 
 if __name__ == "__main__":
