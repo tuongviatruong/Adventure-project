@@ -60,7 +60,7 @@
     // result[4]=sight_url
 
     for (let i = 0; i < result[0].length; i++){
-        $('#list_items').append(`<li id=i><img src=${result[3][i]} style="width:100px;height:100px"> <br> 
+        $('#list_items').append(`<li><img src=${result[3][i]} style="width:100px;height:100px"> <br> 
         <a id="sight" href=${result[4][i]}> ${result[0][i]}</a></li>`)
 
             let session = document.querySelector('#is_session');
@@ -78,6 +78,16 @@
         position: new google.maps.LatLng(result[2][i]["latitude"],result[2][i]["longitude"]),
         map: map,
       })
+
+    // Construct a new InfoWindow.
+      let infoWindow = new google.maps.InfoWindow({
+        content: (`${result[0][i]}`)
+      });
+
+      // Opens the InfoWindow when marker is clicked.
+      marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+        });
     }
   }
 
