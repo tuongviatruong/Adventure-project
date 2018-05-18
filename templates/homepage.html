@@ -36,14 +36,16 @@
   // }
 
 
-  function addSight() {
-    if (sightButtons.innerText === "Add sight to trip") {
-      sightButtons.innerText = "Sight added";
+  function addSight(param) {
+    if (param.innerText === "Add sight to trip") {
+      param.innerText = "Sight added";
     } else {
-      sightButtons.innerText = "Add sight to trip";
+      param.innerText = "Add sight to trip";
     }
-    let formInputs = {'city': $("#city").val()}
-    $.get("/add-sights", formInputs, showDetails);
+    let sight = document.querySelector(`a#${param.id}`);
+    console.log(sight);
+    // let formInputs = {'city': $("#city").val()}
+    // $.get("/add-sights", formInputs, showDetails);
   }
 
   // once click, function that adds to details page
@@ -58,24 +60,14 @@
     // result[4]=sight_url
 
     for (let i = 0; i < result[0].length; i++){
-<<<<<<< HEAD
-        $('#list_items').append(`<li id=i> <img src=${result[3][i]} style="width:100px;height:100px"> <br> 
-=======
-        $('#list_items').append(`<li> <img src=${result[3][i]} style="width:100px;height:100px"> <br> 
->>>>>>> f22725567595ca36e9e18327e4548df2a9ac9197
-        <a href=${result[4][i]}> ${result[0][i]}</a></li>`)
+        $('#list_items').append(`<li id=i><img src=${result[3][i]} style="width:100px;height:100px"> <br> 
+        <a id="sight" href=${result[4][i]}> ${result[0][i]}</a></li>`)
 
             let session = document.querySelector('#is_session');
             if (session.value === "true") {
-<<<<<<< HEAD
-              $('#list_items').append(`<button id='addSight' class='addSightText'>Add sight to trip</button> <br><br>`)
+              $('#list_items').append(`<button id='addSight' class='addSightText' onClick="addSight(this)">Add sight to trip</button> <br><br>`)
             }
-=======
-              $('#list_items').append(`<a href="/trips">Add to trip</a>`)
-            } 
->>>>>>> f22725567595ca36e9e18327e4548df2a9ac9197
     }
-
 
     let map = new google.maps.Map(document.querySelector('#map'), {
       center: result[1], 
@@ -88,19 +80,6 @@
       })
     }
   }
-
-  let sightButtons = document.querySelectorAll(".addSightText");
-  // sightButtons.addEventListener("click", addSight); //console says addEventListner is not a fuction
-  $("#addSight").on("click", addSight);
-  // for (let i = 0; i < sightButtons.length; i++){
-  //   sightButtons[i].addEventListener("click", function(){
-  //     if (sightButtons.innerText === "Add sight to trip") {
-  //     sightButtons.innerText = "Sight added";
-  //     } else {
-  //     sightButtons.innerText = "Add sight to trip";
-  //     }
-  //   });
-  // }
 
   function submitCity(evt) {
     evt.preventDefault();
