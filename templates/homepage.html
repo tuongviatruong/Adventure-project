@@ -35,7 +35,7 @@
     // show message to user it waa added
 
   }
-  
+
   function addSight(param) {
     if (param.innerText === "Add sight to trip") {
       param.innerText = "Sight added";
@@ -66,7 +66,7 @@
 
             let session = document.querySelector('#is_session');
             if (session.value === "true") {
-              $('#list_items').append(`<button id=addSight_${i} class='addSightText' onClick="addSight(this)">Add sight to trip</button> <br><br>`)
+              $('#list_items').append(`<button id=addSight_${i} class='addSightText' onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
             }
     }
 

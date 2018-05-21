@@ -103,8 +103,8 @@ def login_check():
     email_query = User.query.filter_by(email=user_email).first()
 
     if email_query == None:
-    	flash('Invalid email or password')
-        return redirect('/login-form')
+    	flash('Invalid email, please Register')
+        return redirect('/register-form')
 
     if user_password == email_query.password:
 
@@ -115,7 +115,7 @@ def login_check():
 
         return redirect('/')
     else:
-        flash('Invalid')
+        flash('Invalid email or password')
         return redirect('/login-form')
 
 @app.route('/logout')
@@ -128,7 +128,9 @@ def logout():
 @app.route('/trips')
 def user_trips():
     """User's trips page, can add trip or view trips"""
-    user = User.query.get(1)
+    user_id = session['user']
+    user = User.query.get(user_id)
+    print user
     trips = Trip.query.order_by("city").all()
 
     return render_template("user_trips.html", user=user, trips=trips)
@@ -137,8 +139,9 @@ def user_trips():
 def add_trips():
 	"""User adding a trip"""
 
+        user_id = session['user']
 	trip_name = request.args.get('trip')
-	trip = Trip(city=trip_name)
+	trip = Trip(city=trip_name, user_id=user_id)
 
 	db.session.add(trip)
 	db.session.commit()
@@ -150,16 +153,16 @@ def trip_details(trip):
     """Detail for trip"""
 
     sights = Sight.query.all()
-    # trips = Trip.query.filter_by(trip=city).first()
 
     return render_template("trip_info.html", sights=sights, trip=trip)
 
 @app.route('/add-sights', methods=['POST'])
 def add_sights():
     """Adding sights to a trip"""
+    user_id = session['user']
     city = request.form.get('city')
     sight_name = request.form.get('sight_name')
-    sight = Sight(name_sight=sight_name, city=city)
+    sight = Sight(name_sight=sight_name, city=city, user_id=user_id)
     db.session.add(sight)
     db.session.commit()
 

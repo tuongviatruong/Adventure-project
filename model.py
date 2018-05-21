@@ -28,13 +28,13 @@ class Sight(db.Model):
     sight_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name_sight = db.Column(db.String(64))
     city = db.Column(db.String(64))
-    latitude = db.Column(db.Integer)
-    longitude = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    #Define relationship to user
+    user = db.relationship("User", backref="sights")
 
     def __repr__(self):
         """Provide helpful representation when printed"""
-        return "<Sight sight_id={} name={} city={} >".format(self.sight_id, 
-                                                    self.name_sight, self.city)
+        return "<Sight sight_id={} name={} city={} >".format(self.sight_id, self.name_sight, self.city)
 
 class Trip(db.Model):
     """Folder of trips for each user with city name and sights of each city"""
@@ -45,7 +45,7 @@ class Trip(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     #Define relationship to user
-    user = db.relationship("User", backref=db.backref("trips"))
+    user = db.relationship("User", backref="trips")
 
     def __repr__(self):
         """Provide helpful representation when printed"""
