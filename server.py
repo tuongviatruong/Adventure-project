@@ -153,18 +153,16 @@ def trip_details(trip):
 
     return render_template("trip_info.html", sights=sights, trip=trip)
 
-# @app.route('/add-sights')
-# def add_trips():
-# 	"""Adding sights to a trip"""
+@app.route('/add-sights', methods=['POST'])
+def add_sights():
+    """Adding sights to a trip"""
+    city = request.form.get('city')
+    sight_name = request.form.get('sight_name')
+    sight = Sight(name_sight=sight_name, city=city)
+    db.session.add(sight)
+    db.session.commit()
 
-# 	city = request.args.get('city')
-# 	sight_name = request.args.get('id of sight')
-# 	sight = Sight(name_sight=sight_name, city=city)
-
-# 	db.session.add(sight)
-# 	db.session.commit()
-
-	# return redirect('/details/<trip>'
+    return "Success"
 
 
 if __name__ == "__main__":

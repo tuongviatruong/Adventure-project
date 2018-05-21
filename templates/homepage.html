@@ -30,22 +30,23 @@
   "use strict";
   let submitButton = document.querySelector("#sights");
 
-  // function showDetails(result) {
-  //   console.log(result)
+  function showDetails(result) {
+    console.log(result)
+    // show message to user it waa added
 
-  // }
-
-
+  }
+  
   function addSight(param) {
     if (param.innerText === "Add sight to trip") {
       param.innerText = "Sight added";
-    } else {
-      param.innerText = "Add sight to trip";
     }
     let sight = document.querySelector(`a#${param.id}`);
-    console.log(sight);
-    // let formInputs = {'city': $("#city").val()}
-    // $.get("/add-sights", formInputs, showDetails);
+    console.log(sight.innerText);
+
+    
+    let formInputs = {'city': $("#city").val(),
+                    'sight_name': sight.innerText}
+    $.post("/add-sights", formInputs, showDetails);
   }
 
   // once click, function that adds to details page
@@ -58,14 +59,14 @@
     // result[2]=coordinates
     // result[3]=image_url
     // result[4]=sight_url
-
+    
     for (let i = 0; i < result[0].length; i++){
         $('#list_items').append(`<li><img src=${result[3][i]} style="width:100px;height:100px"> <br> 
-        <a id="sight" href=${result[4][i]}> ${result[0][i]}</a></li>`)
+        <a id=addSight_${i} href=${result[4][i]}>${result[0][i]}</a></li>`)
 
             let session = document.querySelector('#is_session');
             if (session.value === "true") {
-              $('#list_items').append(`<button id='addSight' class='addSightText' onClick="addSight(this)">Add sight to trip</button> <br><br>`)
+              $('#list_items').append(`<button id=addSight_${i} class='addSightText' onClick="addSight(this)">Add sight to trip</button> <br><br>`)
             }
     }
 
