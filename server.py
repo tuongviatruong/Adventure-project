@@ -150,6 +150,7 @@ def trip_details(trip):
     """Detail for trip"""
 
     sights = Sight.query.all()
+    # trips = Trip.query.filter_by(trip=city).first()
 
     return render_template("trip_info.html", sights=sights, trip=trip)
 

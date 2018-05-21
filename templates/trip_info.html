@@ -3,11 +3,11 @@
 {% block body %}
 
   <h2>{{ trip }}</h2>
-
   <ul>
       {% for sight in sights %}
-        <li>{{ sight.name_sight }} </li><br>
-
+        {% if sight.city == trip.lower() %}
+            <li> {{ sight.name_sight }} </li><br>
+        {% endif %}   
       {% endfor %}
   </ul>
 
