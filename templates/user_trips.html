@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block title %} Trips {% endblock %}
 {% block body %}
-
+  
   <h2>Hi {{ user.fname }} !</h2>
-
+  
   <h3>Your Trips:</h3>
   <ul>
     {% for trip in trips %}
       {% if user.user_id == trip.user_id %}
-      <li><a href="/details/{{ trip.city }}"> {{ trip.city }} </a></li>
+      <li><a href="/details/{{ trip.city }}"> {{ trip.city.title() }} </a></li>
       {% endif %}
     {% endfor %}
   </ul>

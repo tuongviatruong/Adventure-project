@@ -67,10 +67,10 @@ def register():
 def registration():
     """Registers user after submitting info"""
 
-    user_email = request.form['email']
+    user_email = request.form['email'].lower()
     user_password = request.form['password']
-    user_fname = request.form['fname']
-    user_lname = request.form['lname']
+    user_fname = request.form['fname'].title()
+    user_lname = request.form['lname'].title()
 
     email_query = User.query.filter_by(email=user_email).all()
 
@@ -130,7 +130,6 @@ def user_trips():
     """User's trips page, can add trip or view trips"""
     user_id = session['user']
     user = User.query.get(user_id)
-    print user
     trips = Trip.query.order_by("city").all()
 
     return render_template("user_trips.html", user=user, trips=trips)
@@ -140,9 +139,18 @@ def add_trips():
 	"""User adding a trip"""
 
         user_id = session['user']
-	trip_name = request.args.get('trip')
-	trip = Trip(city=trip_name, user_id=user_id)
-
+	trip_name = request.args.get('trip').title()
+        trip_city = Trip.query.order_by("city").all()
+        trips=[]
+        i=0
+        while i < len(trip_city):
+            trips.append(trip_city[i].city)
+            i+=1
+            print trips
+        if trip_name not in trips:
+            trip = Trip(city=trip_name, user_id=user_id)
+        else:
+            return redirect('/trips')
 	db.session.add(trip)
 	db.session.commit()
 
@@ -162,6 +170,7 @@ def add_sights():
     user_id = session['user']
     city = request.form.get('city')
     sight_name = request.form.get('sight_name')
+    print sight_name
     sight = Sight(name_sight=sight_name, city=city, user_id=user_id)
     db.session.add(sight)
     db.session.commit()
