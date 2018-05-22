@@ -170,10 +170,18 @@ def add_sights():
     user_id = session['user']
     city = request.form.get('city')
     sight_name = request.form.get('sight_name')
-    print sight_name
-    sight = Sight(name_sight=sight_name, city=city, user_id=user_id)
-    db.session.add(sight)
-    db.session.commit()
+
+    top_sights = Sight.query.filter_by(name_sight=sight_name, user_id=user_id).all()
+    sights=[]
+    i=0
+    while i < len(top_sights):
+        sights.append(top_sights[i].name_sight)
+        i+=1
+    if sight_name not in sights:
+        sight = Sight(name_sight=sight_name, city=city, user_id=user_id)
+
+        db.session.add(sight)
+        db.session.commit()
 
     return "Success"
 
