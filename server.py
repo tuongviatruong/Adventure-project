@@ -138,19 +138,19 @@ def user_trips():
 def add_trips():
 	"""User adding a trip"""
 
-        user_id = session['user']
+        user = session['user']
 	trip_name = request.args.get('trip').title()
-        trip_city = Trip.query.order_by("city").all()
+        trip_city = Trip.query.filter_by(city=trip_name, user_id=user).all()
         trips=[]
         i=0
         while i < len(trip_city):
             trips.append(trip_city[i].city)
             i+=1
-            print trips
         if trip_name not in trips:
-            trip = Trip(city=trip_name, user_id=user_id)
+            trip = Trip(city=trip_name, user_id=user)
         else:
             return redirect('/trips')
+
 	db.session.add(trip)
 	db.session.commit()
 
