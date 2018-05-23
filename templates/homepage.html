@@ -62,7 +62,7 @@
     
     for (let i = 0; i < result[0].length; i++){
         $('#list_items').append(`<li><img src=${result[3][i]} style="width:100px;height:100px"> <br> 
-        <a id=addSight_${i} href=${result[4][i]}>${result[0][i]}</a></li>`)
+        <a id=addSight_${i} href=${result[4][i]} target="_blank">${result[0][i]}</a></li>`)
 
             let session = document.querySelector('#is_session');
             if (session.value === "true") {
@@ -81,7 +81,7 @@
       })
 
       google.maps.event.addListener(marker,'click',function() {
-          map.setZoom(15);
+          map.setZoom(14);
           map.setCenter(marker.getPosition());
           });
         
