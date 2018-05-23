@@ -80,6 +80,12 @@
         map: map,
       })
 
+      google.maps.event.addListener(marker,'click',function() {
+          map.setZoom(15);
+          map.setCenter(marker.getPosition());
+          });
+        
+
     // Construct a new InfoWindow.
       let infoWindow = new google.maps.InfoWindow({
         content: (`${result[0][i]}`)
