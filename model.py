@@ -28,9 +28,9 @@ class Sight(db.Model):
     sight_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name_sight = db.Column(db.String(64))
     city = db.Column(db.String(64))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    #Define relationship to user
-    user = db.relationship("User", backref="sights")
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    # Define relationship to user
+    # user = db.relationship("User", backref="sights")
 
     def __repr__(self):
         """Provide helpful representation when printed"""
@@ -41,7 +41,7 @@ class Trip(db.Model):
     __tablename__ = "trips"
 
     trip_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    city = db.Column(db.String(64))
+    trip_name = db.Column(db.String(64))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     #Define relationship to user
@@ -49,7 +49,7 @@ class Trip(db.Model):
 
     def __repr__(self):
         """Provide helpful representation when printed"""
-        return "<Trip trip_id={} city={}>".format(self.trip_id, self.city)
+        return "<Trip trip_id={} trip_name={}>".format(self.trip_id, self.trip_name)
 
 class Trip_sight(db.Model):
     """Association table for Sight and Trip tables"""
@@ -60,13 +60,13 @@ class Trip_sight(db.Model):
     sight_id = db.Column(db.Integer, db.ForeignKey('sights.sight_id'))
 
     #Define relationship to trip
-    trip = db.relationship("Trip", backref=db.backref("trip_sights"))
+    trip = db.relationship("Trip", backref="trip_sights")
     #Define relationship to sight
-    sight = db.relationship("Sight", backref=db.backref("trip_sights"))
+    sight = db.relationship("Sight", backref="trip_sights")
 
     def __repr__(self):
         """Provide helpful representation when printed"""
-        return "<Trip_sight trip_sight_id={} trip_id={} sight_id>".format(
+        return "<Trip_sight trip_sight_id={} trip_id={} sight_id={}>".format(
                                                             self.trip_sight_id,
                                                     self.trip_id, self.sight_id)
 

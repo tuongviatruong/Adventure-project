@@ -5,11 +5,7 @@
   <h2>{{ trip }}</h2>
   <ul>
       {% for sight in sights %}
-        {% if session['user'] == sight.user_id %}
-            {% if sight.city == trip.lower() %}
-                <li> {{ sight.name_sight }} </li><br>
-            {% endif %}  
-        {% endif %}  
+        <li> {{ sight.sight.name_sight }} </li><br>
       {% endfor %}
   </ul>
 

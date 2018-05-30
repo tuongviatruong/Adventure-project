@@ -3,20 +3,124 @@
 {% block body %}
   
   <h2>Hi {{ user.fname }} !</h2>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Your Trips:</h3>
+    
   
-  <h3>Your Trips:</h3>
   <ul>
     {% for trip in trips %}
       {% if user.user_id == trip.user_id %}
-      <li><a href="/details/{{ trip.city }}"> {{ trip.city.title() }} </a></li>
+
+      
+      <li><a id='delete_{{ loop.index }}' href="/details/{{ trip.trip_name }}"> {{ trip.trip_name.title() }} </a>
+
+        <!-- <a hidden id=edit_{{ loop.index }} href="/details/{{ trip.trip_name }}"> {{ trip.trip_name.title() }} </a> -->
+
+        <!-- <button id=edit_{{ loop.index }} class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" onClick="editTrip(this)"><span class="glyphicon glyphicon-pencil"></span></button> -->
+
+        <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></button>
+      </li><br>
+
+          <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Delete Trip</h4>
+      </div>
+          <div class="modal-body">
+       
+       <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Trip?</div>
+       
+      </div>
+        <div class="modal-footer ">
+        <button id='delete_{{ loop.index }}' type="button" class="btn btn-success" onClick="deleteTrip(this)"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+        
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+
+        </div>
+      </div>
+    <!-- /.modal-content  -->
+  </div>
+      <!-- /.modal-dialog --> 
+    </div>
+
+
+
+
       {% endif %}
     {% endfor %}
+
+
   </ul>
+        </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Edit Trip</h4>
+      </div>
+          <div class="modal-body">
+          <div class="form-group">
+        <input class="form-control " type="text" placeholder="" id="edit_text">
+        </div>
+      </div>
+          <div class="modal-footer ">
+        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;" onClick="addSight(this)"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+        </div>
+         <! /.modal-content --> 
+        <!-- </div> -->
+
+     <!-- /.modal-dialog -->  
+  <!-- </div> -->
+     
+    <!-- </div> --> 
+  
 
   <form id="trips" method="get" action="/add-trips">
     Trip Name: <input type="text" name="trip" id="trip" required>
 
     <input type="submit" id="trip" value="Add a trip">
   </form>
+
+<script>
+  "use strict"
+
+  function refresh(results) {
+    document.location.reload()
+  }
+
+  function deleteTrip(param) {
+    let delTrip = document.querySelector(`a#${param.id}`);
+    console.log(delTrip.innerText);
+
+    let formInputs = {'trip_del': delTrip.innerText.trim()}
+    $.post("/delete_trip", formInputs, refresh);
+  }
+
+  // function editTrip(param) {
+  // let delTrip = document.querySelector(`a#${param.id}`);
+  // console.log(editTrip.innerText);
+
+  
+  // let formInputs = {'city': $("#city").val(),
+  //                 'sight_name': sight.innerText}
+  // $.post("/add-sights", formInputs, showDetails);
+// }
+
+
+
+</script>
+
 
 {% endblock %}

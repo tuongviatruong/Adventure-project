@@ -32,7 +32,7 @@
 
   function showDetails(result) {
     console.log(result)
-    // show message to user it waa added
+    // show message to user it was added
 
   }
 
@@ -41,11 +41,16 @@
       param.innerText = "Sight added";
     }
     let sight = document.querySelector(`a#${param.id}`);
-    console.log(sight.innerText);
+    console.log(sight.innerText); //getting sight
 
-    
+    var trip = $(`select#${param.id}`).find(':selected').text();
+    console.log(trip.trim()); //getting trip selected
+
     let formInputs = {'city': $("#city").val(),
-                    'sight_name': sight.innerText}
+                    'sight_name': sight.innerText,
+                    'trip': trip.trim(),
+                     }
+
     $.post("/add-sights", formInputs, showDetails);
   }
 
@@ -54,11 +59,17 @@
 
   function showResults(result) {
     console.log(result)
+    console.log(result[5])
+
+    let trips = result[5]
     // result[0]=top_sights
     // result[1]=lat_long
     // result[2]=coordinates
     // result[3]=image_url
     // result[4]=sight_url
+    // result[5]=added trips
+    // result[6]=yelp sight_id
+
     
     for (let i = 0; i < result[0].length; i++){
         $('#list_items').append(`<li><img src=${result[3][i]} style="width:100px;height:100px"> <br> 
@@ -66,7 +77,19 @@
 
             let session = document.querySelector('#is_session');
             if (session.value === "true") {
-              $('#list_items').append(`<button id=addSight_${i} class='addSightText' onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
+
+              let trip_strings = []
+
+                for (let j = 0; j < trips.length; j++) {
+                    trip_strings.push(`<option id=addSight_${j} class=addSight_${j} value=addSight_${j}> ${trips[j]} </option>`)
+                  }
+
+              
+              $('#list_items').append(`<form><select id=addSight_${i} name="add-to-trip")>
+                ${trip_strings}
+                  </select></form>
+
+                <button id=addSight_${i} class='addSightText' onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
             }
     }
 
