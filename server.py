@@ -28,7 +28,7 @@ def show_top_sights():
     city = request.args.get('city')
     headers = {'Authorization': 'Bearer ' + YELP_KEY}
 
-    r = requests.get('https://api.yelp.com/v3/businesses/search?term=Sightseeing&location=' + city, headers=headers)
+    r = requests.get('https://api.yelp.com/v3/businesses/search?term=Tourist+Attractions&location=' + city, headers=headers)
     data = r.json()
 
     business = data["businesses"]
@@ -37,7 +37,7 @@ def show_top_sights():
     coordinates = []
     image_url = []
     sight_url = []
-    # sight_id = []
+
     for place in business:
         for info, value in place.items():
             if info == "name":
@@ -48,8 +48,6 @@ def show_top_sights():
                 image_url.append(value)
             elif info == "url":
                 sight_url.append(value)
-            # elif info == "id":
-            #     sight_id.append(value)
 
     region = data["region"]
 
@@ -133,7 +131,8 @@ def login_check():
 
 @app.route('/logout')
 def logout():
-    session.pop('user')
+
+    del session["user"]
     flash('You were successfully logged out')
 
     return redirect('/')

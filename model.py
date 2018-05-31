@@ -70,14 +70,32 @@ class Trip_sight(db.Model):
                                                             self.trip_sight_id,
                                                     self.trip_id, self.sight_id)
 
+
+def example_data():
+    user1 = User(fname="Vi", lname="truong", email="vi@gmail.com", password="hello")
+    user2 = User(fname="tina", lname="truong", email="tina@yahoo.com", password="123456")
+
+    trip1 = Trip(trip_name="Chicago 2018", user=user1)
+    trip2 = Trip(trip_name="New York 2019", user=user1)
+    trip3 = Trip(trip_name="Chicago 2018", user=user2)
+
+    sight1 = Sight(name_sight="The Cloud Gate", city="Chicago")
+    sight2 = Sight(name_sight="Brooklyn Bridge", city="New york")
+    trip_sight = Trip_sight(trip=trip, sight=sight)
+
+    db.session.add_all([user1, user2, trip1, trip2, trip3, sight1,
+                        sight2, trip_sight])
+    db.session.commit()
+
+
 ##############################################################################
 # Helper functions
 
-def connect_to_db(app):
+def connect_to_db(app, db_uri="postgresql:///trips"):
     """Connect the database to our Flask app."""
 
     # Configure to use our PstgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///trips'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
