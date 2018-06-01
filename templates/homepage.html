@@ -103,7 +103,7 @@
         map: map,
       })
 
-      google.maps.event.addListener(marker,'click',function() {
+      google.maps.event.addListener(marker,'click', function() {
           map.setZoom(14);
           map.setCenter(marker.getPosition());
           });

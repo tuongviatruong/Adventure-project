@@ -28,9 +28,6 @@ class Sight(db.Model):
     sight_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name_sight = db.Column(db.String(64))
     city = db.Column(db.String(64))
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    # Define relationship to user
-    # user = db.relationship("User", backref="sights")
 
     def __repr__(self):
         """Provide helpful representation when printed"""
@@ -81,10 +78,12 @@ def example_data():
 
     sight1 = Sight(name_sight="The Cloud Gate", city="Chicago")
     sight2 = Sight(name_sight="Brooklyn Bridge", city="New york")
-    trip_sight = Trip_sight(trip=trip, sight=sight)
+
+    trip_sight1 = Trip_sight(trip=trip1, sight=sight1)
+    trip_sight2 = Trip_sight(trip=trip2, sight=sight2)
 
     db.session.add_all([user1, user2, trip1, trip2, trip3, sight1,
-                        sight2, trip_sight])
+                        sight2, trip_sight1, trip_sight2])
     db.session.commit()
 
 

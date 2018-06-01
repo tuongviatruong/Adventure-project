@@ -7,6 +7,7 @@ from flask import Flask, render_template, request, flash, redirect, jsonify, ses
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Sight, Trip, Trip_sight
+from sqlalchemy import update
 
 app = Flask(__name__)
 app.secret_key = "SECRETSECRETSECRET"
@@ -198,7 +199,7 @@ def add_sights():
         sights.append(top_sights[i].name_sight)
         i+=1
     if sight_name not in sights:
-        sight = Sight(name_sight=sight_name, city=city)  
+        sight = Sight(name_sight=sight_name, city=city)
         db.session.add(sight)
         db.session.commit()
 
@@ -243,6 +244,17 @@ def delete_trips():
 
     return redirect('/trips')
 
+# @app.route('/edit_trip', methods=['POST'])
+# def edit_trips():
+#     """Edit trip folder"""
+#     user_id = session['user']
+    # trip_edit = request.form.get('trip_edit').strip()
+    # put in = request.form.get('trip_edit').strip()
+
+    # edit_trip = Trip.query.filter_by(trip_name=trip_edit, user_id=user_id).first()
+    # edit_trip.trip_name = put in
+
+    # db.session.commit()
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
