@@ -2,11 +2,33 @@
 {% block title %} Trip's Info {% endblock %}
 {% block body %}
 
-  <h2>{{ trip }}</h2>
+  <h2><a id="trip">{{ trip }}</h2> </a><br>
   <ul>
       {% for sight in sights %}
-        <li> {{ sight.sight.name_sight }} </li><br>
+        <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} 
+            <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick="deleteSight(this)"><span class="glyphicon glyphicon-trash"></span></button>
+        </li><br>
       {% endfor %}
   </ul>
+
+  <script>
+  "use strict"
+  function confirmDel(results) {
+    document.location.reload()
+  }
+
+  function deleteSight(param) {
+    let delSight = document.querySelector(`p#${param.id}`);
+    console.log(delSight.innerText);
+    let trip = document.getElementById("trip");
+    console.log(trip.innerText);
+    var confirmationdel = confirm("Are you sure you want to delete this?")
+    if (confirmationdel) {
+      let formInputs = {'sight_del': delSight.innerText.trim(),
+                        'trip': trip.innerText.trim()}
+      $.post("/delete_sight", formInputs, confirmDel);
+    }
+  }
+</script>
 
 {% endblock %}

@@ -28,8 +28,6 @@ def show_top_sights():
 
     city = request.args.get('city')
     category = request.args.get('categories')
-
-    print category
     headers = {'Authorization': 'Bearer ' + YELP_KEY}
 
     if category == "top":
@@ -188,8 +186,8 @@ def trip_details(trip):
     """Detail for trip"""
 
     user = session['user']
-    trip_query = Trip.query.filter_by(trip_name=trip, user_id=user).all()
-    trip_id = trip_query[0].trip_id
+    trip_query = Trip.query.filter_by(trip_name=trip.strip(), user_id=user).first()
+    trip_id = trip_query.trip_id
     trip_sights_query = Trip_sight.query.filter_by(trip_id=trip_id).all()
 
     return render_template("trip_info.html", sights=trip_sights_query, trip=trip)
@@ -216,11 +214,11 @@ def add_sights():
         db.session.commit()
 
     # get sight_id and trip_id to add to trip_sight table in database
-    sight_query = Sight.query.filter_by(name_sight=sight_name, city=city).all()
-    sight_id = sight_query[0].sight_id
+    sight_query = Sight.query.filter_by(name_sight=sight_name, city=city).first()
+    sight_id = sight_query.sight_id
     trip = request.form.get('trip').title().strip() #trip they choose
-    trip_user= Trip.query.filter_by(trip_name=trip, user_id=user_id).all()
-    trip_id= trip_user[0].trip_id
+    trip_user = Trip.query.filter_by(trip_name=trip, user_id=user_id).first()
+    trip_id = trip_user.trip_id
 
     #can only add trip_id and sight_id once in trip_sights table
     trip_sights_query = Trip_sight.query.filter_by(trip_id=trip_id, sight_id=sight_id).all()
@@ -256,17 +254,23 @@ def delete_trips():
 
     return redirect('/trips')
 
-# @app.route('/edit_trip', methods=['POST'])
-# def edit_trips():
-#     """Edit trip folder"""
-#     user_id = session['user']
-    # trip_edit = request.form.get('trip_edit').strip()
-    # put in = request.form.get('trip_edit').strip()
+@app.route('/delete_sight', methods=['POST'])
+def delete_sight():
+    """Delete sight from trip folder"""
+    user_id = session['user']
+    sight_del = request.form.get('sight_del').strip()
+    sight_trip = request.form.get('trip').strip()
 
-    # edit_trip = Trip.query.filter_by(trip_name=trip_edit, user_id=user_id).first()
-    # edit_trip.trip_name = put in
+    trip = Trip.query.filter_by(trip_name=sight_trip, user_id=user_id).first()
+    trip_id = trip.trip_id
+    sight = Sight.query.filter_by(name_sight=sight_del).first()
+    sight_id = sight.sight_id
+    del_sights_trip = Trip_sight.query.filter_by(trip_id=trip_id, sight_id=sight_id).first()
 
-    # db.session.commit()
+    db.session.delete(del_sights_trip)
+    db.session.commit()
+
+    return "Sucess"
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
