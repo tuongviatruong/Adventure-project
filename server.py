@@ -27,11 +27,23 @@ def show_top_sights():
     """Show city's top sights, with map and markers"""
 
     city = request.args.get('city')
+    category = request.args.get('categories')
+
+    print category
     headers = {'Authorization': 'Bearer ' + YELP_KEY}
 
-    r = requests.get('https://api.yelp.com/v3/businesses/search?term=Tourist+Attractions&location=' + city, headers=headers)
-    data = r.json()
+    if category == "top":
+        r = requests.get('https://api.yelp.com/v3/businesses/search?term=Tourist+Attractions&location=' + city, headers=headers)
+    elif category == "museums":
+        r = requests.get('https://api.yelp.com/v3/businesses/search?term=Museum&location=' + city, headers=headers)
+    elif category == "nature":
+        r = requests.get('https://api.yelp.com/v3/businesses/search?term=Nature&location=' + city, headers=headers)
+    elif category == "night":
+        r = requests.get('https://api.yelp.com/v3/businesses/search?term=Nightlife&location=' + city, headers=headers)
+    elif category == "restaurant":
+        r = requests.get('https://api.yelp.com/v3/businesses/search?term=Restaurants&location=' + city, headers=headers)
 
+    data = r.json()
     business = data["businesses"]
 
     top_sights = []
