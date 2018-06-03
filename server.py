@@ -290,6 +290,23 @@ def todo():
 
     return "Sucess"
 
+# @app.route('/delete_done', methods=['POST'])
+# def delete_done():
+#     """Delete todo that are marked done"""
+#     user_id = session['user']
+#     todo_done = request.form.get('done').strip()
+#     trippp = request.form.get('trippp').strip()
+
+#     trip = Trip.query.filter_by(trip_name=trippp, user_id=user_id).first()
+#     trip_id = trip.trip_id
+
+
+#     del_done = Todo_lists.query.filter_by(trip_id=trip_id, todo=todo_done).all()
+
+#     db.session.delete(del_done)
+#     db.session.commit()
+
+#     return "Sucess"
 
 
 if __name__ == "__main__":

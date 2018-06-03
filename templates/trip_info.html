@@ -12,10 +12,14 @@
   </ul>
 
   <br><h3> To-dos </h3>
-    <!-- <div id='display'></div> -->
+  <ul>
     {% for list in todo %}
-        <li>{{ list.todo }} </li>
+        <li> <b id="checked_{{ loop.index }}"> {{ list.todo }} <input class= "checkboxs" type="checkbox" id="checked_{{ loop.index }}"> </b> </li>
     {% endfor %}    
+  </ul>
+
+    <button onclick="todoDone()">Check when done</button>
+    <br><br>
 
 
     <textarea id="todo" rows="4" cols="50" name="comment" form="usrform" placeholder='What needs to be done?'></textarea><br>
@@ -45,8 +49,6 @@
   }  
 
   function showInput() {
-    // let div = document.getElementById('display');
-    // div.innerHTML = div.innerHTML + "<li>" + document.getElementById("todo").value;
     let tripp = document.getElementById("trip");
     console.log(tripp.innerText)
     let todo = document.getElementById("todo").value
@@ -58,6 +60,25 @@
     
   }
 
+  // function refreshDone(results) {
+  //   document.location.reload()
+  // } 
+
+  // function todoDone(param) {
+    // let trippp = document.getElementById("trip");
+    // let done = document.querySelector('.checkboxs').checked;
+    // console.log(done);
+
+    // let d = document.getElementById("checkbox").value;
+    // console.log(d.innerText);
+
+    // let dol = $(`b#${param.id}`).find(':b').text();
+
+    // let formInputs = {'done': delSight.innerText.trim(),
+    //                 'trippp': trippp.innerText.trim()}
+    // $.post("/delete_done", formInputs, refreshDone);
+    
+  // }
 
  
 
