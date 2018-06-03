@@ -7,13 +7,15 @@
       {% for sight in sights %}
         <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} ({{ sight.sight.category }})
             <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick="deleteSight(this)"><span class="glyphicon glyphicon-trash"></span></button><br>
-            <!-- <p style="text-indent: 20px"> Category: {{ sight.sight.category }} </p> -->
         </li><br>
       {% endfor %}
   </ul>
 
   <br><h3> To-dos </h3>
-    <div id='display'></div>
+    <!-- <div id='display'></div> -->
+    {% for list in todo %}
+        <li>{{ list.todo }} </li>
+    {% endfor %}    
 
 
     <textarea id="todo" rows="4" cols="50" name="comment" form="usrform" placeholder='What needs to be done?'></textarea><br>
@@ -38,10 +40,24 @@
     }
   }
 
+  function refreshTodo(results) {
+    document.location.reload()
+  }  
+
   function showInput() {
-    let div = document.getElementById('display');
-    div.innerHTML = div.innerHTML + "<li>" + document.getElementById("todo").value;
+    // let div = document.getElementById('display');
+    // div.innerHTML = div.innerHTML + "<li>" + document.getElementById("todo").value;
+    let tripp = document.getElementById("trip");
+    console.log(tripp.innerText)
+    let todo = document.getElementById("todo").value
+    console.log(todo)
+    
+    let formInputs = {'todo': todo,
+                    'tripp': tripp.innerText.trim()}
+      $.post("/todo", formInputs, refreshTodo);
+    
   }
+
 
  
 

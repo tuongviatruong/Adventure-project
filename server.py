@@ -6,7 +6,7 @@ import requests
 from flask import Flask, render_template, request, flash, redirect, jsonify, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, Sight, Trip, Trip_sight
+from model import connect_to_db, db, User, Sight, Trip, Trip_sight, Todo_list
 from sqlalchemy import update
 
 app = Flask(__name__)
@@ -189,8 +189,9 @@ def trip_details(trip):
     trip_query = Trip.query.filter_by(trip_name=trip.strip(), user_id=user).first()
     trip_id = trip_query.trip_id
     trip_sights_query = Trip_sight.query.filter_by(trip_id=trip_id).all()
+    todo_list = Todo_list.query.filter_by(trip_id=trip_id, user_id=user).all()
 
-    return render_template("trip_info.html", sights=trip_sights_query, trip=trip)
+    return render_template("trip_info.html", sights=trip_sights_query, trip=trip, todo=todo_list)
 
 @app.route('/add-sights', methods=['POST'])
 def add_sights():
@@ -268,6 +269,23 @@ def delete_sight():
     del_sights_trip = Trip_sight.query.filter_by(trip_id=trip_id, sight_id=sight_id).first()
 
     db.session.delete(del_sights_trip)
+    db.session.commit()
+
+    return "Sucess"
+
+@app.route('/todo', methods=['POST'])
+def todo():
+    """Add todo list in trips folder"""
+    user_id = session['user']
+
+    tripp = request.form.get('tripp').strip()
+    todo = request.form.get('todo')
+
+    trip = Trip.query.filter_by(trip_name=tripp, user_id=user_id).first()
+    trip_id = trip.trip_id
+
+    new_todo = Todo_list(user_id=user_id, trip_id=trip_id, todo=todo)
+    db.session.add(new_todo)
     db.session.commit()
 
     return "Sucess"

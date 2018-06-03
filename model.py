@@ -68,9 +68,25 @@ class Trip_sight(db.Model):
                                                             self.trip_sight_id,
                                                     self.trip_id, self.sight_id)
 
-# class Todo(db.Model):
-#     """Association table for User and Trip tables"""
-#     __tablename__ = "todo"
+class Todo_list(db.Model):
+    """Association table for User and Trip tables for todo list"""
+    __tablename__ = "todo_lists"
+
+    todo_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    trip_id = db.Column(db.Integer, db.ForeignKey('trips.trip_id'))
+    todo = db.Column(db.UnicodeText)
+
+    #Define relationship to trip
+    trips = db.relationship("Trip", backref="todo_lists")
+    #Define relationship to user
+    users = db.relationship("User", backref="todo_lists")
+
+    def __repr__(self):
+        """Provide helpful representation when printed"""
+        return "<Todo todo_id={} trip_id={} todo={}>".format(
+                                                    self.todo_id,
+                                                    self.trip_id, self.todo)    
 
 def example_data():
     user1 = User(fname="Vi", lname="truong", email="vi@gmail.com", password="hello")
