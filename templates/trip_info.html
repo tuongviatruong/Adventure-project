@@ -11,7 +11,14 @@
       {% endfor %}
   </ul>
 
-  <script>
+  <br><h3> To-dos </h3>
+    <div id='display'></div>
+
+
+    <textarea id="todo" rows="4" cols="50" name="comment" form="usrform" placeholder='What needs to be done?'></textarea><br>
+    <input type="submit" onClick='showInput()'>
+
+  <script> 
   "use strict"
   function confirmDel(results) {
     document.location.reload()
@@ -29,6 +36,14 @@
       $.post("/delete_sight", formInputs, confirmDel);
     }
   }
+
+  function showInput() {
+    let div = document.getElementById('display');
+    div.innerHTML = div.innerHTML + "<li>" + document.getElementById("todo").value;
+  }
+
+ 
+
 </script>
 
 {% endblock %}

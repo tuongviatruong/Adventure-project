@@ -67,6 +67,9 @@ class Trip_sight(db.Model):
                                                             self.trip_sight_id,
                                                     self.trip_id, self.sight_id)
 
+# class Todo(db.Model):
+#     """Association table for User and Trip tables"""
+#     __tablename__ = "todo"
 
 def example_data():
     user1 = User(fname="Vi", lname="truong", email="vi@gmail.com", password="hello")
