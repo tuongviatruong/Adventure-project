@@ -28,6 +28,7 @@ class Sight(db.Model):
     sight_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name_sight = db.Column(db.String(64))
     city = db.Column(db.String(64))
+    category = db.Column(db.String(64))
 
     def __repr__(self):
         """Provide helpful representation when printed"""

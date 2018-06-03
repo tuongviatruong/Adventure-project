@@ -30,15 +30,15 @@ def show_top_sights():
     category = request.args.get('categories')
     headers = {'Authorization': 'Bearer ' + YELP_KEY}
 
-    if category == "top":
+    if category == "Top Sight":
         r = requests.get('https://api.yelp.com/v3/businesses/search?term=Tourist+Attractions&location=' + city, headers=headers)
-    elif category == "museums":
+    elif category == "Museum":
         r = requests.get('https://api.yelp.com/v3/businesses/search?term=Museum&location=' + city, headers=headers)
-    elif category == "nature":
+    elif category == "Nature":
         r = requests.get('https://api.yelp.com/v3/businesses/search?term=Nature&location=' + city, headers=headers)
-    elif category == "night":
+    elif category == "Night Life":
         r = requests.get('https://api.yelp.com/v3/businesses/search?term=Nightlife&location=' + city, headers=headers)
-    elif category == "restaurant":
+    elif category == "Restaurant":
         r = requests.get('https://api.yelp.com/v3/businesses/search?term=Restaurants&location=' + city, headers=headers)
 
     data = r.json()
@@ -200,7 +200,7 @@ def add_sights():
     city = request.form.get('city').title()
 
     sight_name = request.form.get('sight_name').title().strip() #sight they choose
-
+    category = request.form.get('category').strip()
     # sights added to database only once
     top_sights = Sight.query.filter_by(name_sight=sight_name).all()
     sights = []
@@ -209,7 +209,7 @@ def add_sights():
         sights.append(top_sights[i].name_sight)
         i+=1
     if sight_name not in sights:
-        sight = Sight(name_sight=sight_name, city=city)
+        sight = Sight(name_sight=sight_name, city=city, category=category)
         db.session.add(sight)
         db.session.commit()
 

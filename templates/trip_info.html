@@ -5,8 +5,9 @@
   <h2><a id="trip">{{ trip }}</h2> </a><br>
   <ul>
       {% for sight in sights %}
-        <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} 
-            <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick="deleteSight(this)"><span class="glyphicon glyphicon-trash"></span></button>
+        <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} ({{ sight.sight.category }})
+            <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick="deleteSight(this)"><span class="glyphicon glyphicon-trash"></span></button><br>
+            <!-- <p style="text-indent: 20px"> Category: {{ sight.sight.category }} </p> -->
         </li><br>
       {% endfor %}
   </ul>

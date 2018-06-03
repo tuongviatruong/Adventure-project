@@ -12,11 +12,11 @@
 
     
   <select id="categories" name="categories">
-    <option value="top">Top Sights</option>
-    <option value="museums">Museums</option>
-    <option value="nature">Nature</option>
-    <option value="night">NightLife</option>
-    <option value="restaurant">Restaurants</option>
+    <option value="Top Sight">Top Sights</option>
+    <option value="Museum">Museums</option>
+    <option value="Nature">Nature</option>
+    <option value="Night Life">NightLife</option>
+    <option value="Restaurant">Restaurants</option>
   </select> <br>
 
 
@@ -59,6 +59,7 @@
     let formInputs = {'city': $("#city").val(),
                     'sight_name': sight.innerText,
                     'trip': trip.trim(),
+                    'category':$("#categories").val()
                      }
 
     $.post("/add-sights", formInputs, showDetails);
@@ -118,7 +119,7 @@
 
     // Construct a new InfoWindow.
       let infoWindow = new google.maps.InfoWindow({
-        content: (`${result[0][i]}`)
+        content: (`${topSights[i]}`)
       });
 
       // Opens the InfoWindow when marker is clicked.
