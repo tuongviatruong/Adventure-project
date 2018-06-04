@@ -14,11 +14,11 @@
   <br><h3> To-dos </h3>
   <ul>
     {% for list in todo %}
-        <li> <b id="checked_{{ loop.index }}"> {{ list.todo }} <input class= "checkboxs" type="checkbox" id="checked_{{ loop.index }}"> </b> </li>
+        <li> <b id='checked_{{ loop.index }}'> {{ list.todo }} </b><input type="checkbox" id='checked_{{ loop.index }}' value='{{ list.todo }}'> </li>
     {% endfor %}    
   </ul>
 
-    <button onclick="todoDone()">Check when done</button>
+    <button id="button" onClick="todoDone(this)">Check when done</button>
     <br><br>
 
 
@@ -60,25 +60,22 @@
     
   }
 
-  // function refreshDone(results) {
-  //   document.location.reload()
-  // } 
+  function refreshDone(results) {
+    document.location.reload()
+  } 
 
-  // function todoDone(param) {
-    // let trippp = document.getElementById("trip");
-    // let done = document.querySelector('.checkboxs').checked;
-    // console.log(done);
+  function todoDone(param) {
+    let trip = document.getElementById("trip");
+    console.log(trip.innerText)
 
-    // let d = document.getElementById("checkbox").value;
-    // console.log(d.innerText);
+    let done = $("input[type=checkbox]:checked").val()
+    console.log(done)
 
-    // let dol = $(`b#${param.id}`).find(':b').text();
-
-    // let formInputs = {'done': delSight.innerText.trim(),
-    //                 'trippp': trippp.innerText.trim()}
-    // $.post("/delete_done", formInputs, refreshDone);
+    let formInputs = {'done': done,
+                    'trip': trip.innerText.trim()}
+    $.post("/delete_done", formInputs, refreshDone);
     
-  // }
+  }
 
  
 
