@@ -89,12 +89,10 @@ class Todo_list(db.Model):
                                                     self.trip_id, self.todo)    
 
 def example_data():
-    user1 = User(fname="Vi", lname="truong", email="vi@gmail.com", password="hello")
-    user2 = User(fname="tina", lname="truong", email="tina@yahoo.com", password="123456")
+    user = User(fname="Vi", lname="truong", email="vi@gmail.com", password="hello")
 
-    trip1 = Trip(trip_name="Chicago 2018", user=user1)
-    trip2 = Trip(trip_name="New York 2019", user=user1)
-    trip3 = Trip(trip_name="Chicago 2018", user=user2)
+    trip1 = Trip(trip_name="Chicago 2018", user=user)
+    trip2 = Trip(trip_name="New York 2019", user=user)
 
     sight1 = Sight(name_sight="The Cloud Gate", city="Chicago")
     sight2 = Sight(name_sight="Brooklyn Bridge", city="New york")
@@ -102,8 +100,10 @@ def example_data():
     trip_sight1 = Trip_sight(trip=trip1, sight=sight1)
     trip_sight2 = Trip_sight(trip=trip2, sight=sight2)
 
-    db.session.add_all([user1, user2, trip1, trip2, trip3, sight1,
-                        sight2, trip_sight1, trip_sight2])
+    todo1 = Todo_list(users=user, trips=trip1, todo="Need to book ticket for Cloud Gate")
+
+    db.session.add_all([user, trip1, trip2, sight1,
+                        sight2, trip_sight1, trip_sight2, todo1])
     db.session.commit()
 
 

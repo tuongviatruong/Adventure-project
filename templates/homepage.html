@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %} Aventure Planning {% endblock %}
+{% block title %} Aventure Planner {% endblock %}
 {% block body %}
-
-<h1>Adventure Planning</h1>
-
-<h2>Search a city for top sights</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
 
   <form id="sights" method="get" action="/city">
-    City: <input type="text" name="city" id="city" required> <br>
+    City: <input type="text" name="city" id="city" placeholder="Search a city" required> <br>
 
-    
+    Choose a category:
   <select id="categories" name="categories">
     <option value="Top Sight">Top Sights</option>
     <option value="Museum">Museums</option>
@@ -20,7 +19,7 @@
   </select> <br>
 
 
-    <input type="submit" id="sights" value="Submit">
+    <input type="submit" id="sights" value="Search">
 
     {% if session %}
       <input type="text" value="true" id="is_session" hidden >
@@ -34,121 +33,19 @@
 
     <ul id='list_items'></ul>
   </p>
+</div>
 
+<div class="col-9">
 
- <script>
-  "use strict";
-  let submitButton = document.querySelector("#sights");
+<div id="map"></div>
+</div>
+</div>
+</div>
 
-  function showDetails(result) {
-    console.log(result)
-    // show message to user it was added
-
-  }
-
-  function addSight(param) {
-    if (param.innerText === "Add sight to trip") {
-      param.innerText = "Sight added";
-    }
-    let sight = document.querySelector(`a#${param.id}`);
-    console.log(sight.innerText); //getting sight
-
-    let trip = $(`select#${param.id}`).find(':selected').text();
-    console.log(trip.trim()); //getting trip selected
-
-    let formInputs = {'city': $("#city").val(),
-                    'sight_name': sight.innerText,
-                    'trip': trip.trim(),
-                    'category':$("#categories").val()
-                     }
-
-    $.post("/add-sights", formInputs, showDetails);
-  }
-
-  // once click, function that adds to details page
-
-
-  function showResults(result) {
-    console.log(result)
-
-    let topSights = result[0]
-    let cityCenterLatLong = result[1]
-    let sightCoordinates = result[2]
-    let imageUrl = result[3]
-    let sightURL = result[4]
-    let trips = result[5]
-    
-    
-    for (let i = 0; i < topSights.length; i++){
-        $('#list_items').append(`<li><img src=${imageUrl[i]} style="width:100px;height:100px"> <br> 
-        <a id=addSight_${i} href=${sightURL[i]} target="_blank">${topSights[i]}</a></li>`)
-
-            let session = document.querySelector('#is_session');
-            if (session.value === "true") {
-
-              let trip_strings = []
-
-                for (let j = 0; j < trips.length; j++) {
-                    trip_strings.push(`<option id=addSight_${j} class=addSight_${j} value=addSight_${j}> ${trips[j]} </option>`)
-                  }
-
-              
-              $('#list_items').append(`<form><select id=addSight_${i} name="add-to-trip")>
-                ${trip_strings}
-                  </select></form>
-
-                <button id=addSight_${i} class='addSightText' onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
-            }
-    }
-
-    let map = new google.maps.Map(document.querySelector('#map'), {
-      center: cityCenterLatLong, 
-      zoom: 8,
-    })
-    for (let i = 0; i < sightCoordinates.length; i++){
-      let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(sightCoordinates[i]["latitude"],sightCoordinates[i]["longitude"]),
-        map: map,
-      })
-
-      google.maps.event.addListener(marker,'click', function() {
-          map.setZoom(14);
-          map.setCenter(marker.getPosition());
-          });
-        
-
-    // Construct a new InfoWindow.
-      let infoWindow = new google.maps.InfoWindow({
-        content: (`${topSights[i]}`)
-      });
-
-      // Opens the InfoWindow when marker is clicked.
-      marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-        });
-    }
-  }
-
-  function submitCity(evt) {
-    evt.preventDefault();
-    let formInputs = {'city': $("#city").val(),
-                      'categories':$("#categories").val()}
-    
-    $.get("/city", formInputs, showResults);
-  }
-
-  submitButton.addEventListener("submit", submitCity);
-
-</script> 
+<script src="/static/homepage.js"></script> 
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 
 
-<style type="text/css">
-    html, body { height: 80%; margin: 0; padding: 0; }
-    #map { height: 80%; }
-  </style>
-
-<div id="map"></div>
 
 {% endblock %}

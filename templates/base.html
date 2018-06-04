@@ -3,15 +3,11 @@
 <head>
     <title>{% block title %} Title Goes Here {% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="/static/styles.css"> -->
 
-    <!-- <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>  -->
-    <!-- To use jQuery code -->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
     {% block head %}
         <!-- put extra CSS/JS here -->
@@ -20,17 +16,40 @@
 
 <body>
 
+     <nav class="navbar navbar-expand-lg navbar-dark">
 
-    {% if "user" in session %}
-        <a href='/logout'>Log Out</a> | 
-        <a href='/trips'>Trips</a> |
-        <a href='/'> Search</a>
-    {% else %}
-        <a href='/login-form'>Log In </a> | <a href='/register-form'>Register</a>
+    <a id="ubermelon-logo" class="navbar-brand" href="/">Adventure Planner</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    {% endif %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      {% if "user" in session %}
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href='/'> Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='/trips'>Trips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='/logout'>Log Out</a>
+        </li>
+    </ul>
+        {% else %}
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href='/login-form'> Log In </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='/register-form'>Register</a>
+        </li>
+      </ul>
+      {% endif %}
+    </div>
 
-    <hr>
+  </nav>
+
 
      <!-- Show flashed messages -->
     {% with messages = get_flashed_messages() %}
@@ -44,7 +63,8 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    
 
 </body>
 </html>

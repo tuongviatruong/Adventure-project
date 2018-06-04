@@ -13,7 +13,7 @@ class Tests(unittest.TestCase):
 
     def test_homepage(self):
         result = self.client.get("/")
-        self.assertIn("Search a city for top sights", result.data)
+        self.assertIn("Search a city", result.data)
 
     def test_login_form(self):
         result = self.client.get("/login-form")
@@ -76,6 +76,7 @@ class TestsDatabase(unittest.TestCase):
 
         result = self.client.get("/details/Chicago%202018")
         self.assertIn("The Cloud Gate", result.data)
+        self.assertIn("Need to book ticket for Cloud Gate", result.data)
         result = self.client.get("/details/New%20York%202019")
         self.assertIn("Brooklyn Bridge", result.data)
 
