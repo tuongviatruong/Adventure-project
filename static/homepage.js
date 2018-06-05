@@ -62,12 +62,16 @@
 
     let map = new google.maps.Map(document.querySelector('#map'), {
       center: cityCenterLatLong, 
-      zoom: 8,
+      zoom: 10,
+      styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"simplified"},{"color":"#5b6571"},{"lightness":"35"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"visibility":"on"},{"color":"#f3f4f4"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"weight":0.9},{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#83cead"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"on"},{"color":"#fee379"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway.controlled_access","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"visibility":"simplified"},{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#7fc8ed"}]}]
+                      
     })
     for (let i = 0; i < sightCoordinates.length; i++){
+      let myImageURL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI8SURBVGhD7ZXBS1RRFMYHXIRRupNaOfNmaqG7ysowQQJxEaEw781k04A42SKQEoQKI3DRqBBpbqTViOLGjRtxnc5MzODf0KJFMxK5H6N7OufN4SXjZXT3zsP7gw/uu/eew/e9e+dNyHAegNFrlnKs96hdlbC+s77SHK3xNrmoodgFlYh8Rv2BhAU6KSdyhFqivVwmC/Uk1oYBip7pF30A8xmAldcA2TFdoALYXZe4XA5obMs1+bQLYPkVwObSf619AEhGdWG2uFwGKmmNuOYeXwf4MlM3v7EAMDsK8PIBQBrDNYTw5ESHuY3/4A/5m2vqXbweYn0OIHNLb7xBdB25jb+A3XkFv0Z/XWO52XqQyQGtaZ2oVqWsDm7nH8oJ97umxm/ylZrX/h6aCU/lPrfzD5UMP3INTfTUg6y80ZptJurB7fxDJaL3PFNTg3gyN04YPU3K6bzL7fwDbKud/uR0Bs8ivFY16sHt/AWD7OhMnkUYZJvb+I+KR3vxE6x0RpuJakRcq+Pgm/2kM9tM+On9yOVyADvUgmFWdYb1iuSohsvlgW/5OV6Zit68ewo/lR1+xttlAw+vXqxlbqcr2Wn4/Tbtisa18TspWuNtwWB//7C9UD6A46I5Xg4OJog0TBBpmCDSMEGkYYJIwwSRhgkiDRNEGiaINEwQaZgg0sjnf11uDEJzvBwsCqXqnhcExzwdPPLlaso7DRzzdPAoFn+0FsrVQxKNeTqY5EsHiyR+DC57pUo3iR8N54RQ6B8nz08tnO5GhAAAAABJRU5ErkJggg==';
       let marker = new google.maps.Marker({
         position: new google.maps.LatLng(sightCoordinates[i]["latitude"],sightCoordinates[i]["longitude"]),
         map: map,
+        icon: myImageURL
       })
 
       google.maps.event.addListener(marker,'click', function() {

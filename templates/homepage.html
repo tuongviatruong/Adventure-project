@@ -4,23 +4,22 @@
 {% block body %}
 <div class="container-fluid">
   <div class="row">
-    <div class="col-6">
+    <div class="col-5 leftcol scrollit">
 
       <form id="sights" method="get" action="/city">
 
         <div class="form-group">
 
         <input class="form-control" type="text" name="city" id="city" placeholder="Search a city" required> <br>
-      </div>
-      <div>
-    Choose a category:
-      <select id="categories" name="categories">
+
+      <select id="categories" name="categories" class="selectpicker form-control">
+        <option value="" disabled selected> Category </option>
         <option value="Top Sight">Top Sights</option>
         <option value="Museum">Museums</option>
         <option value="Nature">Nature</option>
         <option value="Night Life">NightLife</option>
         <option value="Restaurant">Restaurants</option>
-      </select> <br>
+      </select> 
         </div>
 
       <input type="submit" id="sights" value="Search" class="btn btn-primary">
@@ -38,9 +37,13 @@
       </p>  
     </div>
 
-    <div class="col-6">
+
+    <div class="col-7 rightcol fixed">
   <div id="map"></div>
 </div>
+
+
+
 </div>
 </div>
 

@@ -26,16 +26,39 @@ body {
 #adventure-logo, #adventure-logo:hover, .navbar-dark .navbar-brand {
   color: #fff;
   font-family: 'Pacifico', cursive;
+  text-shadow: 0 0 9px black;
+}
+
+
+a#adventure-logo {
+  font-size: xx-large;
 }
 
 .navbar-nav>li>a, .navbar-dark .navbar-nav .nav-link {
   color: #fff;
   font-family: 'Pacifico', cursive;
+  text-shadow: 0 0 12px black;
 }
     
-#map { height: 10%; }
+#map { 
+  width: 700px;
+  height: 500px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px; 
+}
   
 h2 {
   color: #CD5360;
   font-family: 'Pacifico', cursive;
+}
+
+/*.col-5 {
+  overflow-y: scroll;
+}*/
+
+.leftcol {
+  height: 500px;
+  overflow-y: scroll;
+  
 }
