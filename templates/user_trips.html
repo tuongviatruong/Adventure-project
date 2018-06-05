@@ -4,10 +4,6 @@
   
   <h2>Hi {{ user.fname }} !</h2>
 
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
       <h3>Your Trips:</h3>
     
   <ul>
@@ -17,17 +13,16 @@
       
       <li><a id='delete_{{ loop.index }}' href="/details/{{ trip.trip_name }}"> {{ trip.trip_name.title() }} </a>
 
-        <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick="deleteTrip(this)"><span class="glyphicon glyphicon-trash"></span></button>
+        <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" onClick="deleteTrip(this)"><i class="fas fa-trash-alt"></i></button>
       </li><br>
       {% endif %}
     {% endfor %}
   </ul>
         </div>
-  </div>
-</div>
+
 
   <form id="trips" method="get" action="/add-trips">
-    Trip Name: <input type="text" name="trip" id="trip" required>
+    <input type="text" name="trip" id="trip" placeholder="Trip Name" required>
 
     <input type="submit" id="trip" value="Add a trip">
   </form>

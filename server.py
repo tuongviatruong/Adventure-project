@@ -265,6 +265,7 @@ def delete_sight():
     trip = Trip.query.filter_by(trip_name=sight_trip, user_id=user_id).first()
     trip_id = trip.trip_id
     sight = Sight.query.filter_by(name_sight=sight_del).first()
+    print sight
     sight_id = sight.sight_id
     del_sights_trip = Trip_sight.query.filter_by(trip_id=trip_id, sight_id=sight_id).first()
 

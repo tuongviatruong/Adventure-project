@@ -4,10 +4,10 @@
     <title>{% block title %} Title Goes Here {% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
-
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
 
     {% block head %}
         <!-- put extra CSS/JS here -->
@@ -18,14 +18,14 @@
 
      <nav class="navbar navbar-expand-lg navbar-dark">
 
-    <a id="ubermelon-logo" class="navbar-brand" href="/">Adventure Planner</a>
+    <a id="adventure-logo" class="navbar-brand" href="/">Adventure Planner</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       {% if "user" in session %}
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" href='/'> Search</a>
         </li>
@@ -37,7 +37,7 @@
         </li>
     </ul>
         {% else %}
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link" href='/login-form'> Log In </a>
         </li>
@@ -65,6 +65,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
     
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>

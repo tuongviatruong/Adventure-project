@@ -51,8 +51,7 @@
                 for (let j = 0; j < trips.length; j++) {
                     trip_strings.push(`<option id=addSight_${j} class=addSight_${j} value=addSight_${j}> ${trips[j]} </option>`)
                   }
-
-              
+                  
               $('#list_items').append(`<form><select id=addSight_${i} name="add-to-trip")>
                 ${trip_strings}
                   </select></form>

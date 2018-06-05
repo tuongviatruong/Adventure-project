@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
+
 {% block title %} Trip's Info {% endblock %}
 {% block body %}
 
   <h2><a id="trip">{{ trip }}</h2> </a><br>
   <ul>
       {% for sight in sights %}
-        <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} ({{ sight.sight.category }})
-            <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onClick="deleteSight(this)"><span class="glyphicon glyphicon-trash"></span></button><br>
+        {{ sight.sight.category }}
+        <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" onClick="deleteSight(this)"><i class="fas fa-trash"></i></button></p>
+          <br>
         </li><br>
       {% endfor %}
   </ul>
@@ -14,7 +16,7 @@
   <br><h3> To-dos </h3>
   <ul>
     {% for list in todo %}
-        <li> <b id='checked_{{ loop.index }}'> {{ list.todo }} </b><input type="checkbox" id='checked_{{ loop.index }}' value='{{ list.todo }}'> </li>
+        <li> {{ list.todo }} <input type="checkbox" id='checked_{{ loop.index }}' value='{{ list.todo }}'> </li>
     {% endfor %}    
   </ul>
 
@@ -25,60 +27,6 @@
     <textarea id="todo" rows="4" cols="50" name="comment" form="usrform" placeholder='What needs to be done?'></textarea><br>
     <input type="submit" onClick='showInput()'>
 
-  <script> 
-  "use strict"
-  function confirmDel(results) {
-    document.location.reload()
-  }
-
-  function deleteSight(param) {
-    let delSight = document.querySelector(`p#${param.id}`);
-    console.log(delSight.innerText);
-    let trip = document.getElementById("trip");
-    console.log(trip.innerText);
-    var confirmationdel = confirm("Are you sure you want to delete this?")
-    if (confirmationdel) {
-      let formInputs = {'sight_del': delSight.innerText.trim(),
-                        'trip': trip.innerText.trim()}
-      $.post("/delete_sight", formInputs, confirmDel);
-    }
-  }
-
-  function refreshTodo(results) {
-    document.location.reload()
-  }  
-
-  function showInput() {
-    let tripp = document.getElementById("trip");
-    console.log(tripp.innerText)
-    let todo = document.getElementById("todo").value
-    console.log(todo)
-    
-    let formInputs = {'todo': todo,
-                    'tripp': tripp.innerText.trim()}
-      $.post("/todo", formInputs, refreshTodo);
-    
-  }
-
-  function refreshDone(results) {
-    document.location.reload()
-  } 
-
-  function todoDone(param) {
-    let trip = document.getElementById("trip");
-    console.log(trip.innerText)
-
-    let done = $("input[type=checkbox]:checked").val()
-    console.log(done)
-
-    let formInputs = {'done': done,
-                    'trip': trip.innerText.trim()}
-    $.post("/delete_done", formInputs, refreshDone);
-    
-  }
-
- 
-
-</script>
+<script src="/static/trip_info.js"></script>
 
 {% endblock %}

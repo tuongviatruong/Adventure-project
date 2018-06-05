@@ -4,40 +4,42 @@
 {% block body %}
 <div class="container-fluid">
   <div class="row">
-    <div class="col-3">
+    <div class="col-6">
 
-  <form id="sights" method="get" action="/city">
-    City: <input type="text" name="city" id="city" placeholder="Search a city" required> <br>
+      <form id="sights" method="get" action="/city">
 
+        <div class="form-group">
+
+        <input class="form-control" type="text" name="city" id="city" placeholder="Search a city" required> <br>
+      </div>
+      <div>
     Choose a category:
-  <select id="categories" name="categories">
-    <option value="Top Sight">Top Sights</option>
-    <option value="Museum">Museums</option>
-    <option value="Nature">Nature</option>
-    <option value="Night Life">NightLife</option>
-    <option value="Restaurant">Restaurants</option>
-  </select> <br>
+      <select id="categories" name="categories">
+        <option value="Top Sight">Top Sights</option>
+        <option value="Museum">Museums</option>
+        <option value="Nature">Nature</option>
+        <option value="Night Life">NightLife</option>
+        <option value="Restaurant">Restaurants</option>
+      </select> <br>
+        </div>
 
+      <input type="submit" id="sights" value="Search" class="btn btn-primary">
 
-    <input type="submit" id="sights" value="Search">
+      {% if session %}
+        <input type="text" value="true" id="is_session" hidden >
+      {% else %}
+        <input type="text" value="false" id="is_session" hidden>
+      {% endif %}
 
-    {% if session %}
-      <input type="text" value="true" id="is_session" hidden >
-    {% else %}
-      <input type="text" value="false" id="is_session" hidden>
-    {% endif %}
+      </form>
 
-  </form>
+      <p>
+        <ul id='list_items'></ul>
+      </p>  
+    </div>
 
-  <p>
-
-    <ul id='list_items'></ul>
-  </p>
-</div>
-
-<div class="col-9">
-
-<div id="map"></div>
+    <div class="col-6">
+  <div id="map"></div>
 </div>
 </div>
 </div>
