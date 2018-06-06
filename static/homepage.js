@@ -40,8 +40,8 @@
     
     
     for (let i = 0; i < topSights.length; i++){
-        $('#list_items').append(`<li><img src=${imageUrl[i]} style="width:100px;height:100px"> <br> 
-        <a id=addSight_${i} href=${sightURL[i]} target="_blank">${topSights[i]}</a></li>`)
+        $('#list_items').append(`<li><a id=addSight_${i} href=${sightURL[i]} target="_blank">${topSights[i]}</a><br>
+                    <img src=${imageUrl[i]} class="sightImage"><br></li>`)
 
             let session = document.querySelector('#is_session');
             if (session.value === "true") {
@@ -52,17 +52,17 @@
                     trip_strings.push(`<option id=addSight_${j} class=addSight_${j} value=addSight_${j}> ${trips[j]} </option>`)
                   }
                   
-              $('#list_items').append(`<form><select id=addSight_${i} name="add-to-trip")>
+              $('#list_items').append(`<form><select id=addSight_${i} name="add-to-trip" class="selectpicker form-control1")>
                 ${trip_strings}
                   </select></form>
 
-                <button id=addSight_${i} class='addSightText' onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
+                <button id=addSight_${i} class="btn btn-info" onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
             }
     }
 
     let map = new google.maps.Map(document.querySelector('#map'), {
       center: cityCenterLatLong, 
-      zoom: 10,
+      zoom: 12,
       styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"simplified"},{"color":"#5b6571"},{"lightness":"35"}]},{"featureType":"administrative.neighborhood","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"visibility":"on"},{"color":"#f3f4f4"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"weight":0.9},{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#83cead"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"on"},{"color":"#fee379"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway.controlled_access","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"visibility":"simplified"},{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#7fc8ed"}]}]
                       
     })

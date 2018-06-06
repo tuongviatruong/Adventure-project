@@ -47,18 +47,61 @@ a#adventure-logo {
   -moz-border-radius: 10px;
   border-radius: 10px; 
 }
-  
+
+.leftcol {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+#list_items {
+  column-count:2;
+}
+
+.sightImage{
+  width:180px;
+  height:150px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
 h2 {
   color: #CD5360;
   font-family: 'Pacifico', cursive;
 }
 
-/*.col-5 {
-  overflow-y: scroll;
-}*/
+h3 {
+  color: #ccdfcb;
+  font-family: 'Pacifico', cursive;
+}
 
-.leftcol {
-  height: 500px;
-  overflow-y: scroll;
-  
+a {
+  color: #ff6a5c;
+  font-family: 'Courgette', cursive;
+  font-size: 130%
+}
+
+.selectpicker.form-control1 {
+  width:180px;
+  background-color: #ccdfcb;
+  /*background-color: #a7d2cb;*/
+  font-family: 'Courgette', cursive;
+}
+
+.btn.btn-info {
+  width:180px;
+}
+
+/*nice blue  #77c9d4*/
+
+ul{ list-style-type: none; }
+
+.fas.fa-trash {
+  color: black;
+}
+
+.btn.btn-danger.btn-xs {
+  font-size: 1em;
+  background-color: transparent;
+  border-color: transparent;
 }

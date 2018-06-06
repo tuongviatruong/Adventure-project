@@ -2,7 +2,7 @@
 {% block title %} Trips {% endblock %}
 {% block body %}
   
-  <h2>Hi {{ user.fname }} !</h2>
+  <h2>Hi {{ user.fname }} !</h2> <br>
 
       <h3>Your Trips:</h3>
     
@@ -12,8 +12,7 @@
 
       
       <li><a id='delete_{{ loop.index }}' href="/details/{{ trip.trip_name }}"> {{ trip.trip_name.title() }} </a>
-
-        <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" onClick="deleteTrip(this)"><i class="fas fa-trash-alt"></i></button>
+        <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" onClick="deleteTrip(this)"><i class="fas fa-trash"></i></button>
       </li><br>
       {% endif %}
     {% endfor %}
