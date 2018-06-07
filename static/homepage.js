@@ -40,7 +40,7 @@
     
     
     for (let i = 0; i < topSights.length; i++){
-        $('#list_items').append(`<li><a id=addSight_${i} href=${sightURL[i]} target="_blank">${topSights[i]}</a><br>
+        $('#list_items').append(`<li><a id=addSight_${i} href=${sightURL[i]} target="_blank" class="sightURL">${topSights[i]}</a><br>
                     <img src=${imageUrl[i]} class="sightImage"><br></li>`)
 
             let session = document.querySelector('#is_session');
@@ -56,7 +56,7 @@
                 ${trip_strings}
                   </select></form>
 
-                <button id=addSight_${i} class="btn btn-info" onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
+                <button id=addSight_${i} class="btn btn-primary mb1 bg-blue" onClick="addSight(this); this.onclick=null; this.diabled= true">Add sight to trip</button><br><br>`)
             }
     }
 

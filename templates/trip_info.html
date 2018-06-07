@@ -2,30 +2,47 @@
 
 {% block title %} Trip's Info {% endblock %}
 {% block body %}
+  
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
 
-  <h2><a id="trip">{{ trip }}</h2> </a><br>
-  <ul>
-      {% for sight in sights %}
-        {{ sight.sight.category }}
-        <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" onClick="deleteSight(this)"><i class="fas fa-trash"></i></button></p>
-          <br>
-        </li><br>
-      {% endfor %}
-  </ul>
+    <h3><a id="trip" class="trip">{{ trip }}</a></h3><br>
+    <ul>
+        {% for sight in sights %}
+        <div class="card border-info mb-3 bg-transparent" style="max-width: 18rem;">
+          <div "card-body text-info" >
+          <p class="category"> {{ sight.sight.category }} </p>
+          <li> <p id='delete_{{ loop.index }}'> {{ sight.sight.name_sight }} <button id='delete_{{ loop.index }}' class="btn btn-danger btn-xs" onClick="deleteSight(this)"><i class="fas fa-trash"></i></button></p>
+            <br>
+          </li><br>
+        </div>
+      </div>
+        {% endfor %}
+    </ul> 
+  </div>
 
-  <br><h3> To-dos </h3>
-  <ul>
-    {% for list in todo %}
-        <li> {{ list.todo }} <input type="checkbox" id='checked_{{ loop.index }}' value='{{ list.todo }}'> </li>
-    {% endfor %}    
-  </ul>
+  <div class="col-3 align-self-end">
 
-    <button id="button" onClick="todoDone(this)">Check when done</button>
-    <br><br>
+    <h3> To-dos </h3>
+    <ul>
+      {% for list in todo %}
+          <li class="todos"><p class="checks"> <input type="checkbox" id='checked_{{ loop.index }}' value='{{ list.todo }}'> {{ list.todo }} </p></li>
+      {% endfor %}    
+    </ul>
+
+      <button id="button" onClick="todoDone(this)" class="btn btn-info">Check when done</button>
+      <br><br>
 
 
-    <textarea id="todo" rows="4" cols="50" name="comment" form="usrform" placeholder='What needs to be done?'></textarea><br>
-    <input type="submit" onClick='showInput()'>
+      <textarea class="form-control" id="todo" rows="4" cols="20" name="comment" form="usrform" placeholder='What needs to be done?'></textarea><br>
+      <input type="submit" onClick='showInput()' class="btn btn-info">
+    
+    </div>
+</div>
+</div>
+
+
 
 <script src="/static/trip_info.js"></script>
 

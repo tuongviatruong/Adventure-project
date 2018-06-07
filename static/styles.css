@@ -65,30 +65,80 @@ a#adventure-logo {
   border-radius: 10px;
 }
 
-h2 {
-  color: #CD5360;
-  font-family: 'Pacifico', cursive;
+h1 {
+  font-family: 'Rancho', cursive;
+  /*color: #fff7c0;*/
+  color: #ffce00;
 }
 
+h2 {
+/*  color: #CD5360;
+  font-family: 'Magra', sans-serif;
+  text-shadow: 0 0 1px black;*/
+  color: #a7d2cb;
+  font-family: 'Chewy', cursive;
+}
+
+
 h3 {
-  color: #ccdfcb;
-  font-family: 'Pacifico', cursive;
+  color: #02c8a7;
+  /*color: #4ec5c1;*/
+  font-family: 'Chewy', cursive;
+}
+
+.trip {
+  color: #a7d2cb;
+  font-family: 'Chewy', cursive;
 }
 
 a {
+  /*color: white;*/
   color: #ff6a5c;
-  font-family: 'Courgette', cursive;
-  font-size: 130%
+  font-family: 'Magra', sans-serif;
+  font-size: 125%;
+  text-shadow: 0 0 1px black;
+}
+
+a:hover {
+  color: #ffce00;
+}
+
+/*.sightURL{
+  color: #ff6a5c;
+}*/
+
+
+p {
+  font-family: 'Magra', sans-serif;
+  font-size: 130%;
+  color: #ffce00;
+}
+
+.category{
+  font-family: 'Magra', sans-serif;
+  font-size: 120%;
+  color: #ff6a5c;
+}
+
+.checks{
+  font-family: 'Magra', sans-serif;
+  font-size: 110%;
+  color: #ff6a5c;
+}
+
+.todos {
+  font-family: 'Magra', sans-serif;
+  font-size: 110%;
 }
 
 .selectpicker.form-control1 {
   width:180px;
   background-color: #ccdfcb;
   /*background-color: #a7d2cb;*/
-  font-family: 'Courgette', cursive;
+  font-family: 'Magra', sans-serif;
 }
 
-.btn.btn-info {
+.btn.btn-primary.mb1.bg-blue {
   width:180px;
 }
 
@@ -96,12 +146,50 @@ a {
 
 ul{ list-style-type: none; }
 
-.fas.fa-trash {
-  color: black;
-}
 
 .btn.btn-danger.btn-xs {
   font-size: 1em;
   background-color: transparent;
   border-color: transparent;
+}
+
+.btn.btn-danger.btn-xs:hover {
+  color: #ffce00;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ff6a5c; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+/*::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+}
+*/
+/*#trip {
+
+}*/
+
+.card.border-info.mb-3.bg-transparent {
+  /*margin-bottom:3px;*/
+  height: 7em;
+  text-align:center;
+}
+
+textarea{ 
+  width: 100px;
+  height:50px; 
 }

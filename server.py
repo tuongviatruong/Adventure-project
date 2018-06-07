@@ -131,7 +131,7 @@ def login_check():
     if user_password == email_query.password:
 
         session['user'] = email_query.user_id
-        flash('You were successfully logged in')
+        # flash('You were successfully logged in')
 
         user_id = email_query.user_id
 

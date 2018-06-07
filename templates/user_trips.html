@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 {% block title %} Trips {% endblock %}
 {% block body %}
-  
-  <h2>Hi {{ user.fname }} !</h2> <br>
 
-      <h3>Your Trips:</h3>
+
+  
+<!-- <div class="card"> -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+  
+  
+  <h1>Welcome {{ user.fname }} ! <br>
+    Start planning your adventure!</h1> <br>
+
+
+      <h2>Your Adventures:</h2>
     
   <ul>
     {% for trip in trips %}
@@ -17,14 +27,20 @@
       {% endif %}
     {% endfor %}
   </ul>
-        </div>
+        
 
 
   <form id="trips" method="get" action="/add-trips">
-    <input type="text" name="trip" id="trip" placeholder="Trip Name" required>
-
-    <input type="submit" id="trip" value="Add a trip">
+    <input class="form-control" type="text" name="trip" id="trip" placeholder="Next Adventure" required>
+    <input type="submit" id="trip" value="Add an Adventure" class="btn btn-primary">
   </form>
+  </div>
+  <div class="col-8"></div>
+
+</div>
+</div>
+
+<!-- </div> -->
 
 <script>
   "use strict"

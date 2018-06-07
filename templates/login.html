@@ -2,14 +2,21 @@
 {% block title %} Log In {% endblock %}
 {% block body %}
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+
     <h2>Log In</h2>
 
     <form action="/login" method="POST">
-        Email: <input type="text" name="email" required><br>
-        Password: <input type="password" name="password" required><br>
+        <p> Email: <input class="form-control" type="text" name="email" required></p><br>
+        <p>Password: <input class="form-control" type="password" name="password" required></p><br>
 
-        <input type="submit" value="Log In">
+        <input type="submit" value="Log In" class="btn btn-primary">
 
     </form>
+    </div>
+</div>
+</div>
 
 {% endblock %}
