@@ -2,7 +2,7 @@ import unittest
 
 from server import app
 from flask import session
-from model import db, connect_to_db, example_data
+from model import db, connect_to_db, example_data, User, Sight, Trip, Trip_sight, Todo_list
 
 class Tests(unittest.TestCase):
     """Tests for my adventure site."""
@@ -51,18 +51,22 @@ class TestsDatabase(unittest.TestCase):
             with c.session_transaction() as sess:
                 sess['user'] = 1
 
-    # def tearDown(self):
-    #     """Do at end of every test."""
+    def tearDown(self):
+        """Do at end of every test."""
 
-    #     db.session.close()
-    #     db.drop_all()
+        db.session.close()
+        db.drop_all()
 
     def test_login(self):
         result = self.client.post("/login",
                                     data={'email': 'vi@gmail.com', 'password':'hello'},
                                     follow_redirects=True)
-        self.assertIn("Your Trips:", result.data)
+        self.assertIn("Your Adventures:", result.data)
         self.assertIn("Log Out", result.data)
+
+    def test_find_user(self):
+        vi = User.query.filter(User.fname == "Vi").first()
+        self.assertEqual(vi.fname, "Vi")
 
     def test_trips(self):
         """Test trips page."""
@@ -72,7 +76,7 @@ class TestsDatabase(unittest.TestCase):
         self.assertIn("New York 2019", result.data)
 
     def test_trips_details(self):
-        """Test trips page."""
+        """Test trips info page."""
 
         result = self.client.get("/details/Chicago%202018")
         self.assertIn("The Cloud Gate", result.data)
