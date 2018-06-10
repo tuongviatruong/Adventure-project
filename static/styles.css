@@ -29,7 +29,6 @@ body {
   text-shadow: 0 0 9px black;
 }
 
-
 a#adventure-logo {
   font-size: xx-large;
 }
@@ -67,14 +66,10 @@ a#adventure-logo {
 
 h1 {
   font-family: 'Rancho', cursive;
-  /*color: #fff7c0;*/
   color: #ffce00;
 }
 
 h2 {
-/*  color: #CD5360;
-  font-family: 'Magra', sans-serif;
-  text-shadow: 0 0 1px black;*/
   color: #a7d2cb;
   font-family: 'Chewy', cursive;
 }
@@ -82,7 +77,6 @@ h2 {
 
 h3 {
   color: #02c8a7;
-  /*color: #4ec5c1;*/
   font-family: 'Chewy', cursive;
 }
 
@@ -92,7 +86,6 @@ h3 {
 }
 
 a {
-  /*color: white;*/
   color: #ff6a5c;
   font-family: 'Magra', sans-serif;
   font-size: 125%;
@@ -102,11 +95,6 @@ a {
 a:hover {
   color: #ffce00;
 }
-
-/*.sightURL{
-  color: #ff6a5c;
-}*/
-
 
 p {
   font-family: 'Magra', sans-serif;
@@ -142,8 +130,6 @@ p {
   width:180px;
 }
 
-/*nice blue  #77c9d4*/
-
 ul{ list-style-type: none; }
 
 
@@ -174,17 +160,7 @@ ul{ list-style-type: none; }
     border-radius: 10px;
 }
 
-/* Handle on hover */
-/*::-webkit-scrollbar-thumb:hover {
-    background: #b30000; 
-}
-*/
-/*#trip {
-
-}*/
-
 .card.border-info.mb-3.bg-transparent {
-  /*margin-bottom:3px;*/
   height: 7em;
   text-align:center;
 }
