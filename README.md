@@ -44,7 +44,7 @@ Clone repository:
 ```
 $ git clone https://github.com/tuongviatruong/Adventure-project.git
 ```
-Create a virtual environment: environmentí´®:
+Create a virtual environment:
 ```
 $ virtualenv env
 ```
@@ -52,7 +52,7 @@ Activate the virtual environment:
 ```
 $ source env/bin/activate
 ```
-Install dependencies: deddddependenciesí´—:
+Install dependencies:
 ```
 $ pip install -r requirements.txt
 ```
