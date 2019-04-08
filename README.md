@@ -54,27 +54,31 @@ $ source env/bin/activate
 ```
 Install dependencies:
 ```
-$ pip install -r requirements.txt
+(env) $ pip install -r requirements.txt
 ```
-Get your own secret keys for [Yelp](https://www.yelp.com/developers/documentation/v3/authentication). Save them to a file `secrets.py`. Your file should look something like this:
+Get your own secret keys for [Yelp](https://www.yelp.com/developers/documentation/v3/authentication). Save them to a file `secrets.sh`. Your file should look something like this:
 ```
 export CLIENT_ID="abc"
 export YELP_API_KEY="abc"
 ```
+Load secret info into the environment:
+```
+(env) $ source secrets.sh
+```
 Create database 'trips'.
 ```
-$ createdb trips
+(env) $ createdb trips
 ```
 Create your database tables.
 ```
-$ python -i model.py
+(env) $ python -i model.py
 Connected to DB.
 >>> db.create_all()
 
 ```
 Run the app from the command line.
 ```
-$ python server.py
+(env) $ python server.py
 ```
 
 ## <a name='future'></a> Looking Ahead
